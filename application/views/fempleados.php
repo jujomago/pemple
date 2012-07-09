@@ -143,9 +143,9 @@
 				agregar_combos($(".combo_dinamico  select"));
 				$("#agregar,#borrar").click(function(){
 					if(this.value=="Agregar"){
-						elclon=$(this).nextAll("div").clone();
+					//	elclon=$(this).nextAll("div").clone();
 
-						elclon.find("div.chzn-container-single").remove();
+				/*		elclon.find("div.chzn-container-single").remove();
 						elclon.find("select").show().css("border","1px solid red");
 				
 						$(elclon).children("select").each(function(index) {
@@ -153,7 +153,30 @@
  						 	agregar_combos($(this));
 						});
 									console.log(elclon);
-					    elclon.appendTo($(this).parent());
+					    elclon.appendTo($(this).parent());*/
+
+					    newrow="<div><select name=niveles style=width:100px>";
+
+						newrow+="<?php foreach ($niveles->result() as $nivel): ?>";
+							newrow+="<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>";
+						newrow+="<?php endforeach ?>";
+					    newrow+="</select>";
+								 newrow+="<div class=combo_dinamico>";
+									 newrow+="<select name=establecimiento style=width:220px>";
+									 	 newrow+="<?php foreach ($establecimientos->result() as $e): ?>";
+								 newrow+="<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>";
+							 newrow+="<?php endforeach ?>";
+									 newrow+="</select>";
+									 newrow+="<a href=# class=nuevo>nuevo</a>";
+									 newrow+="<input type=text  class=nuevo style=display:none focus/>";
+								 newrow+="</div>";
+								 newrow+="<input type=text placeholder=Titulo obtenido />";
+								 newrow+="<input type=text placeholder=Tiempo de estudio />";
+							 newrow+="</div>";
+
+						$(this).parent().append(newrow);
+						$(this).parent().children("div:last").find("select").chosen();
+
 					}
 
 				});
@@ -208,7 +231,7 @@
 				<input type="button" value="Agregar" id="agregar" />
 				<input type="button" value="Borrar" id="borrar" />
 				<div>					
-					<select name="" id="" class="chzn-select" style="width:100px;">
+					<select name="niveles" class="chzn-select" style="width:100px;">
 						<?php foreach ($niveles->result() as $nivel): ?>
 							<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>
 						<?php endforeach ?>
