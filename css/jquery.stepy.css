@@ -9,7 +9,7 @@
 .button-back:hover, .button-next:hover, .finish:hover { border-color: #DFDCD6; color: #B07; }
 
 .step {
-	border: 1px solid #DDD; clear: left; font: 10px verdana; width: 500px;
+	border: 1px solid #DDD; clear: left; font: 10px verdana; width:650px;
 	-khtml-border-radius: 3px; -moz-border-radius: 3px; -opera-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;
 }
 .step label { color: #444; display: block; font: bold 10px verdana; margin: 10px 0 3px 7px; }

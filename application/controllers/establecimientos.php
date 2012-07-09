@@ -17,6 +17,19 @@
 				print_r($userper);
 			}
 		}
+
+		/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
+		function agregar(){
+			$estab=$this->input->post('establecimiento');
+			$data=array(
+					"establecimiento"=>$estab,
+					"ult_usuario"=>1
+			);
+			$this->db->insert('emp_establecimientos',$data);
+			echo $this->db->insert_id();
+		}
+
+
 		function abm(){
 			$this->grocery_crud->set_language('spanish');
 			$this->grocery_crud->set_table('emp_establecimientos');

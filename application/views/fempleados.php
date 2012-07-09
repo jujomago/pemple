@@ -81,6 +81,22 @@
 
 			/* Example of dynamic class name */
 			p.default-buttons { margin-top: 30px; }
+			fieldset > div{
+				height:50px;
+				background:#eee;
+				margin:5px 0;
+				padding:4px;
+			}
+				fieldset > div *{
+					vertical-align: top;
+				}
+			fieldset .combo_dinamico{
+				display:inline-block;
+			}
+			fieldset .combo_dinamico .nuevo{
+				display: block;
+				margin-top: 5px;
+			}
 		</style>
 		 
 		   <link rel="stylesheet" href="<?=base_url('chosen/chosen.css')?>" />
@@ -94,27 +110,65 @@
 				});
 				$( ".fecha" ).datepicker();
 				 
-				/*$( "#combobox" ).combobox();
-				$(".combo_agregar a.nuevo").click(function() {
-					$(this).next().show();
+				$(".combo_dinamico a.nuevo").click(function() {
+					$(this).next().show().focus();
 					$(this).hide();
 					return false;
 				});
-				$(".combo_agregar input.nuevo").keypress(function(event) {
+				$(".combo_dinamico input.nuevo").keypress(function(event) {
 					if ( event.which == 13 ) {
-							$("#combobox").append('<option value=1>'+this.value+'</option>');
+
+							$.post('<?=base_url("establecimientos/agregar")?>', 
+								   {"establecimiento": this.value} ,
+								   function(data) {
+						
+								   	newitem="<option value="+data+">"+$("input.nuevo").val();
+  									$(".combo_dinamico select").append(newitem);
+  									$(".combo_dinamico select option:last").attr("selected", "selected");
+  									
+  									$(".combo_dinamico  select").trigger("liszt:updated");
+  								
+  									$("input.nuevo").val('').hide();
+  									$(".combo_dinamico a").show();
+								});				
+						
      						event.preventDefault();
-     						$(".combo_agregar a").show();
-     						$(this).val('').hide();
    					}
-				});*/ 
-				$(".chzn-select").chosen(); 
+				});
+
+
+				//$(".chzn-select").chosen(); 
+				agregar_combos($(".chzn-select"));
+
+				agregar_combos($(".combo_dinamico  select"));
+				$("#agregar,#borrar").click(function(){
+					if(this.value=="Agregar"){
+						elclon=$(this).nextAll("div").clone();
+
+						elclon.find("div.chzn-container-single").remove();
+						elclon.find("select").show().css("border","1px solid red");
+				
+						$(elclon).children("select").each(function(index) {
+							console.log($(this));
+ 						 	agregar_combos($(this));
+						});
+									console.log(elclon);
+					    elclon.appendTo($(this).parent());
+					}
+
+				});
 			})
+			function agregar_combos(elcombo){
+				//alert("dad");
+				elcombo.chosen();
+
+
+			}
 				
 		</script>	
 	
   			<script type="text/javascript">$(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
-	
+			
 	</head>
 	<body>
 		<?=base_url();?>
@@ -151,20 +205,26 @@
 			</fieldset>
 			<fieldset title="Paso 2">
 				<legend>Estudio Realizados</legend>
-				<div>
-					<span>+</span><span>-</span>
-					<select name="" id="">
+				<input type="button" value="Agregar" id="agregar" />
+				<input type="button" value="Borrar" id="borrar" />
+				<div>					
+					<select name="" id="" class="chzn-select" style="width:100px;">
 						<?php foreach ($niveles->result() as $nivel): ?>
 							<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>
 						<?php endforeach ?>
 					</select>
-					<select name="establecimiento" class="chzn-select" style="width:220px;">
-						<?php foreach ($establecimientos->result() as $e): ?>
-							<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>
-						<?php endforeach ?>
-					</select>
+					<div class="combo_dinamico">
+						<select name="establecimiento" style="width:220px;">
+							<?php foreach ($establecimientos->result() as $e): ?>
+								<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>
+							<?php endforeach ?>
+						</select>
+						<a href="#" class="nuevo">nuevo</a>
+						<input type="text"  class="nuevo" style="display:none" focus/>
+					</div>
+
 					<input type="text" placeholder="Titulo obtenido" />
-					<input type="number" placeholder="Tiempo de estudio" />
+					<input type="text" placeholder="Tiempo de estudio" />
 				</div>			 
 			</fieldset>
 			<fieldset title="Paso 3">
