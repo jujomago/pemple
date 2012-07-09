@@ -22,7 +22,7 @@
 		<script type="text/javascript" src="<?=base_url('js/jquery.validate.min.js')?>"></script>
 
 		<script type="text/javascript" src="<?=base_url('js/jquery.stepy.min.js')?>"></script>
-		<script type="text/javascript" src="<?=base_url('js/script.js')?>"></script>
+		<!--script type="text/javascript" src="<?=base_url('js/script.js')?>"></script-->
 		
 		<style type="text/css">
 			/* This CSS does not belong to the plugin. */
@@ -81,28 +81,9 @@
 
 			/* Example of dynamic class name */
 			p.default-buttons { margin-top: 30px; }
-			
-			
-			.ui-combobox {
-		position: relative;
-		display: inline-block;
-	}
-	.ui-combobox-toggle {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		margin-left: -1px;
-		padding: 0;
-		/* adjust styles for IE 6/7 */
-		*height: 1.7em;
-		*top: 0.1em;
-	}
-	.ui-combobox-input {
-		margin: 0;
-		padding: 0.3em;
-	}
-	
 		</style>
+		  <link rel="stylesheet" href="<?=base_url('chosen/chosen.css')?>" />
+			<script src="<?=base_url('chosen/chosen.jquery.js')?>" type="text/javascript"></script>
 		<script>
 			$(function(){
 				$('#SignupForm').stepy({
@@ -111,7 +92,7 @@
 				});
 				$( ".fecha" ).datepicker();
 				
-				$( "#combobox" ).combobox();
+				/*$( "#combobox" ).combobox();
 				$(".combo_agregar a.nuevo").click(function() {
 					$(this).next().show();
 					$(this).hide();
@@ -124,12 +105,14 @@
      						$(".combo_agregar a").show();
      						$(this).val('').hide();
    					}
-				});
-			
+				});*/
+				$(".chzn-select").chosen(); 
 			})
 				
 		</script>	
-
+	
+  			<script type="text/javascript">$(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
+	
 	</head>
 	<body>
 		<?=base_url();?>
@@ -173,7 +156,7 @@
 							<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>
 						<?php endforeach ?>
 					</select>
-					<select name="" id="">
+					<select name="" id=""  class="chzn-select">
 						<?php foreach ($establecimientos->result() as $e): ?>
 							<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>
 						<?php endforeach ?>
