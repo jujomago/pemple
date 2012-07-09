@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width">
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script-->
 
 		<link type="text/css" rel="stylesheet" href="<?=base_url('css/jquery.stepy.css')?>"/>
 		<link type="text/css" rel="stylesheet" href="<?=base_url('css/ui-lightness/uilight.css')?>"/>
