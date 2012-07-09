@@ -91,7 +91,7 @@
 					 nextLabel:      'Siguiente'
 				});
 				$( ".fecha" ).datepicker();
-				
+				 
 				/*$( "#combobox" ).combobox();
 				$(".combo_agregar a.nuevo").click(function() {
 					$(this).next().show();
