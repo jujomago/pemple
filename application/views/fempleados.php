@@ -83,7 +83,7 @@
 			p.default-buttons { margin-top: 30px; }
 		</style>
 		  <link rel="stylesheet" href="<?=base_url('chosen/chosen.css')?>" />
-			<script src="<?=base_url('chosen/chosen.jquery.js')?>" type="text/javascript"></script>
+	       <script src="<?=base_url('chosen/chosen.jquery.js')?>" type="text/javascript"></script>
 		<script>
 			$(function(){
 				$('#SignupForm').stepy({
