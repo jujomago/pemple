@@ -7,14 +7,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Esta es uan preubatia</title>
+	<title>Esta es uan</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
 	<meta name="viewport" content="width=device-width">
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script-->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 
 		<link type="text/css" rel="stylesheet" href="<?=base_url('css/jquery.stepy.css')?>"/>
 		<link type="text/css" rel="stylesheet" href="<?=base_url('css/ui-lightness/uilight.css')?>"/>
@@ -84,7 +84,7 @@
 		</style>
 		 
 		   <link rel="stylesheet" href="<?=base_url('chosen/chosen.css')?>" />
-	       <script src="<?=base_url('chosen/chosen.jquesry.js')?>" type="text/javascript"></script>
+	       <script src="<?=base_url('chosen/chosen.jquery.js')?>" type="text/javascript"></script>
 	       
 		<script>
 			$(function(){
@@ -158,7 +158,7 @@
 							<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>
 						<?php endforeach ?>
 					</select>
-					<select name="" id=""  class="chzn-select">
+					<select name="establecimiento" class="chzn-select" style="width:220px;">
 						<?php foreach ($establecimientos->result() as $e): ?>
 							<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>
 						<?php endforeach ?>
