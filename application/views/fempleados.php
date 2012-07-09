@@ -110,12 +110,12 @@
 				});
 				$( ".fecha" ).datepicker();
 				 
-				$(".combo_dinamico a.nuevo").click(function() {
+				$(".combo_dinamico a.nuevo").live("click",function() {
 					$(this).next().show().focus();
 					$(this).hide();
 					return false;
 				});
-				$(".combo_dinamico input.nuevo").keypress(function(event) {
+				$(".combo_dinamico input.nuevo").on("keypress",(function(event) {
 					if ( event.which == 13 ) {
 
 							$.post('<?=base_url("establecimientos/agregar")?>', 
@@ -132,9 +132,12 @@
   									$(".combo_dinamico a").show();
 								});				
 						
-     						event.preventDefault();
+     					//	event.preventDefault();
+   					}else if(event.which == 27){
+   						console.log(event);
+   			
    					}
-				});
+				}));
 
 
 				//$(".chzn-select").chosen(); 
