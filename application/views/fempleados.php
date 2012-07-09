@@ -105,7 +105,7 @@
      						$(".combo_agregar a").show();
      						$(this).val('').hide();
    					}
-				});*/
+				});*/ 
 				$(".chzn-select").chosen(); 
 			})
 				
