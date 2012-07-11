@@ -75,10 +75,32 @@ td { vertical-align: top; }
    ========================================================================== */
 
 
+form input{
+    padding:3px 5px;
+    height:18px;
+    line-height:18px;
+    border-radius:7px;
+    margin-bottom: 5px;
+}
+form input[type="button"]{
+    padding:6px;
+    height:24px;
+}
 
-
-
-
+.grupo{
+  height:auto;
+}
+.grupo h3{
+  margin:5px 0;
+}
+.formemple-buttons{
+  position: absolute;
+  bottom:0;
+  width:97%;
+}
+#formemple select{
+  width:200px;
+}
 
 
 

@@ -14,27 +14,23 @@
 	<meta name="viewport" content="width=device-width">
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 
-		<link type="text/css" rel="stylesheet" href="<?=base_url('css/jquery.stepy.css')?>"/>
-		<link type="text/css" rel="stylesheet" href="<?=base_url('css/ui-lightness/uilight.css')?>"/>
-
+	
+		<link type="text/css" rel="stylesheet" href="<?=base_url('css/niebla/niebla.css')?>"/> 
+		-->
+		<link type="text/css" rel="stylesheet" href="<?=base_url('css/style.css')?>"/> 
 		<script type="text/javascript" src="<?=base_url('js/jquery.validate.min.js')?>"></script>
-
+		<link type="text/css" rel="stylesheet" href="<?=base_url('css/jquery.stepy.css')?>"/>
 		<script type="text/javascript" src="<?=base_url('js/jquery.stepy.min.js')?>"></script>
-		<!--script type="text/javascript" src="<?=base_url('js/script.js')?>"></script-->
-		
+	
 		<style type="text/css">
-			/* This CSS does not belong to the plugin. */
-			body { background: url('http://localhost/ci/img/background.gif'); font: normal 11px verdana; }
-			
-			a { color: #2C8CBD; text-decoration: none; }
-			a:hover { color: #48A5D4; }
-			
-			a#coffee {
+
+	/*		a#coffee {
 				background: url('img/coffee.png') 6px 2px no-repeat #DC5; border: 1px solid #D9C640; color: #FFF; display: block; float: right; font-size: 10px; font-weight: bold; letter-spacing: .9px; margin-right: 9px; padding: 4px 5px 4px 26px; text-decoration: none;
 				-khtml-border-radius: 4px; -moz-border-radius: 4px; -opera-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
 			}
+
 			a#coffee:hover { text-decoration: underline; }
 			
 			span.comment { color: #999; font: 12px monospace; letter-spacing: .1px; margin-bottom: 7px; margin-top: 5px; }
@@ -56,6 +52,7 @@
 			div#header { margin: 0 auto; padding-left: 20px; width: 1130px; }
 			
 			div#menu { color: #AB9927; font: bold 14px 'Lucida Grande', 'Helvetica', 'Times New Roman', serif; text-shadow: 1px 1px 1px #FFF; text-transform: uppercase; }
+			
 			div#menu a { color: #EA9C00; font: bold 10px verdana; letter-spacing: .9px; text-decoration: none; }
 			div#menu a:hover { color: #DC5; font-weight: bold; letter-spacing: .9px; text-decoration: underline; }
 			
@@ -69,7 +66,7 @@
 			div#title { font: bold 17px verdana; color: #269; letter-spacing: .7px; margin-bottom: 10px; text-align: left; }
 			div#title span { color: #777; font: 10px verdana; }
 			
-			span#version { color: #777; font: 10px verdana; }
+			span#version { color: #777; font: 10px verdana; }*/
 
 			/* Custom */
 			form#target fieldset img { margin-top: 10px; }
@@ -81,8 +78,9 @@
 
 			/* Example of dynamic class name */
 			p.default-buttons { margin-top: 30px; }
+
 			fieldset > div{
-				height:50px;
+			/*	height:50px;*/
 				background:#eee;
 				margin:5px 0;
 				padding:4px;
@@ -104,109 +102,134 @@
 	       
 		<script>
 			$(function(){
-				$('#SignupForm').stepy({
+				$('#formemple').stepy({
 					 backLabel:      'Anterior',
 					 nextLabel:      'Siguiente'
 				});
-				$( ".fecha" ).datepicker();
+				//$( ".fecha" ).datepicker();
 				 
 				$(".combo_dinamico a.nuevo").live("click",function() {
 					$(this).next().show().focus();
 					$(this).hide();
 					return false;
 				});
-				$(".combo_dinamico input.nuevo").on("keypress",(function(event) {
-					if ( event.which == 13 ) {
+				
+				$(document).on("keyup",".combo_dinamico input.nuevo", function(event){
 
+					var code = (event.keyCode ?event.keyCode : event.which);
+
+			
+					var refinput=$(this);
+
+					if ( code == 13 ) {
+
+							console.log("entro aqui");
+								
 							$.post('<?=base_url("establecimientos/agregar")?>', 
 								   {"establecimiento": this.value} ,
 								   function(data) {
 						
-								   	newitem="<option value="+data+">"+$("input.nuevo").val();
-  									$(".combo_dinamico select").append(newitem);
-  									$(".combo_dinamico select option:last").attr("selected", "selected");
+								   	newitem="<option value="+data+" selected>"+refinput.val();
+						
+  									refinput.parent().children("select").append(newitem);
   									
-  									$(".combo_dinamico  select").trigger("liszt:updated");
+									refinput.parent().children("select").trigger("liszt:updated");
   								
-  									$("input.nuevo").val('').hide();
+  									refinput.val('').hide();
   									$(".combo_dinamico a").show();
 								});				
-						
-     					//	event.preventDefault();
-   					}else if(event.which == 27){
-   						console.log(event);
-   			
+						event.preventDefault();
+     						
+   					}else if(code == 27){
+   						$(this).hide();
+						$(this).prev().show();					 			
    					}
-				}));
+				}); 
 
 
-				//$(".chzn-select").chosen(); 
-				agregar_combos($(".chzn-select"));
-
-				agregar_combos($(".combo_dinamico  select"));
+				$(".combo_dinamico  select,.chzn-select").chosen({no_results_text: "No hay resultados"});
 				$("#agregar,#borrar").click(function(){
+
+
+
+						    step2="<div><select name=niveles data-placeholder='Nivel de Educación..'>";
+							step2+="<?php foreach ($niveles->result() as $nivel): ?>";
+							step2+="<option/>";
+							step2+="<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>";
+							step2+="<?php endforeach ?>";
+						    step2+="</select>";
+							step2+="<div class=combo_dinamico>";
+							step2+="<select name=establecimiento data-placeholder=Establecimiento>";
+							step2+="<option/>";
+							step2+="<?php foreach ($establecimientos->result() as $e): ?>";
+							step2+="<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>";
+							step2+="<?php endforeach ?>";
+							step2+="</select>";
+							step2+="<a href=# class=nuevo>nuevo</a>";
+							step2+="<input type=text  class=nuevo style=display:none focus/>";
+							step2+="</div>";
+							step2+="<input type=text placeholder=Titulo obtenido />";
+							step2+="<input type=text placeholder=Tiempo de estudio />";
+							step2+="</div>";
+
+ 			 step2+="<div>";
+			 		step2+=<div class=combo_dinamico>";					
+						step2+=<select name=cargos id=>";
+							step2+=<?php foreach ($cargos->result() as $cargo): ?>";
+								step2+=<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>";
+							step2+=<?php endforeach ?>";
+						step2+=</select>";
+						step2+=step2+=<a href=# class=nuevo>nuevo</a>";
+						<input type=text  class=nuevo style=display:none focus/>";";
+					step2+=</div>";
+					step2+=<div class=combo_dinamico>	";
+						step2+=<select name=sucursales id=>";
+							step2+=<?php foreach ($sucursales->result() as $suc): ?>";
+								step2+=step2+=<option value=<?=$suc->id_sucursal?>><?=$suc->sucursal?></option>";
+							step2+=<?php endforeach ?>";
+						step2+=</select>";
+						step2+=<a href=# class=nuevo>nuevo</a>";
+						step2+=<input type=text  class=nuevo style=display:none focus/>";
+					step2+=</div>";
+					step2+=<input type=number placeholder=Tiempo de Trabajo />";
+			   step2+=</div>";
+
+
+
+
 					if(this.value=="Agregar"){
-					//	elclon=$(this).nextAll("div").clone();
+						    if($(this).parent().children("div").length<=6){
 
-				/*		elclon.find("div.chzn-container-single").remove();
-						elclon.find("select").show().css("border","1px solid red");
-				
-						$(elclon).children("select").each(function(index) {
-							console.log($(this));
- 						 	agregar_combos($(this));
-						});
-									console.log(elclon);
-					    elclon.appendTo($(this).parent());*/
 
-					    newrow="<div><select name=niveles style=width:100px>";
 
-						newrow+="<?php foreach ($niveles->result() as $nivel): ?>";
-							newrow+="<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>";
-						newrow+="<?php endforeach ?>";
-					    newrow+="</select>";
-								 newrow+="<div class=combo_dinamico>";
-									 newrow+="<select name=establecimiento style=width:220px>";
-									 	 newrow+="<?php foreach ($establecimientos->result() as $e): ?>";
-								 newrow+="<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>";
-							 newrow+="<?php endforeach ?>";
-									 newrow+="</select>";
-									 newrow+="<a href=# class=nuevo>nuevo</a>";
-									 newrow+="<input type=text  class=nuevo style=display:none focus/>";
-								 newrow+="</div>";
-								 newrow+="<input type=text placeholder=Titulo obtenido />";
-								 newrow+="<input type=text placeholder=Tiempo de estudio />";
-							 newrow+="</div>";
 
-						$(this).parent().append(newrow);
-						$(this).parent().children("div:last").find("select").chosen();
 
+							$(this).parent().append(newrow);
+							$(this).parent().children("div:last").find("select").chosen({no_results_text: "No hay resultados"});
+						}
+					}else{
+						if($(this).parent().children("div").length>1){
+
+							$(this).parent().children("div:last").remove();
+						}
 					}
 
 				});
 			})
-			function agregar_combos(elcombo){
-				//alert("dad");
-				elcombo.chosen();
-
-
-			}
 				
 		</script>	
-	
-  			<script type="text/javascript">$(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
-			
 	</head>
 	<body>
 		<?=base_url();?>
-		<form id="SignupForm" action="#">
-			<fieldset title="Paso 1">
+		<form id="formemple" action="#">
+			<fieldset title="Paso 1" id="step1">
 				<legend>Inicio</legend>
 				<div class="grupo">
 				  <h3>Datos Personales</h3>
 				  <input type="text" name="nombres" placeholder="Nombres"  />
 				  <input type="text" name="apterno" placeholder="Ap. Paterno" />
 				  <input type="text" name="amaterno"  placeholder="Ap. Materno" />
-				   <input type="number" name="ci"  placeholder="Cedula de Identidad" />	
+				   <input type="text" name="ci"  placeholder="Cedula de Identidad" />	
 				  <input type="date" name="fnac"  placeholder="Fecha de Nacimiento" class="fecha"/>	
 				  <select name="extension">
 				  	<?php foreach ($dptos->result() as $dpto):?>
@@ -229,18 +252,20 @@
 				 	  <input type="text" placeholder="Pagina Web" name="web" />				 
 				</div>		 
 			</fieldset>
-			<fieldset title="Paso 2">
+			<fieldset title="Paso 2" id="step2">
 				<legend>Estudio Realizados</legend>
 				<input type="button" value="Agregar" id="agregar" />
 				<input type="button" value="Borrar" id="borrar" />
 				<div>					
-					<select name="niveles" class="chzn-select" style="width:100px;">
+					<select name="niveles" class="chzn-select" data-placeholder="Nivel de Educación..">
+						<option></option>
 						<?php foreach ($niveles->result() as $nivel): ?>
 							<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>
 						<?php endforeach ?>
 					</select>
 					<div class="combo_dinamico">
-						<select name="establecimiento" style="width:220px;">
+						<select name="establecimiento" data-placeholder="Establecimiento..">
+							<option></option>
 							<?php foreach ($establecimientos->result() as $e): ?>
 								<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>
 							<?php endforeach ?>
@@ -253,24 +278,33 @@
 					<input type="text" placeholder="Tiempo de estudio" />
 				</div>			 
 			</fieldset>
-			<fieldset title="Paso 3">
+			<fieldset title="Paso 3" id="step3">
 			  <legend>Experiencia de Trabajo</legend>
-			 	<div>
-					<span>+</span><span>-</span>
-					<select name="" id="">
-						<?php foreach ($cargos->result() as $cargo): ?>
-							<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>
-						<?php endforeach ?>
-					</select>
-					<select name="" id="">
-						<?php foreach ($sucursales->result() as $suc): ?>
-							<option value=<?=$suc->id_sucursal?>><?=$suc->sucursal?></option>
-						<?php endforeach ?>
-					</select>
+			  <input type="button" value="Agregar" id="agregar" />
+			  <input type="button" value="Borrar" id="borrar" />
+			  <div>
+			 		<div class="combo_dinamico">					
+						<select name="cargos" id="">
+							<?php foreach ($cargos->result() as $cargo): ?>
+								<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>
+							<?php endforeach ?>
+						</select>
+						<a href="#" class="nuevo">nuevo</a>
+						<input type="text"  class="nuevo" style="display:none" focus/>
+					</div>
+					<div class="combo_dinamico">	
+						<select name="sucursales" id="">
+							<?php foreach ($sucursales->result() as $suc): ?>
+								<option value=<?=$suc->id_sucursal?>><?=$suc->sucursal?></option>
+							<?php endforeach ?>
+						</select>
+						<a href="#" class="nuevo">nuevo</a>
+						<input type="text"  class="nuevo" style="display:none" focus/>
+					</div>
 					<input type="number" placeholder="Tiempo de Trabajo" />
-				</div>
+			   </div>
 			</fieldset>
-			<fieldset id="" title="Paso 4">
+			<fieldset id="step4" title="Paso 4">
 			  <legend>Compentencias</legend>
 			 	<div>
 					<span>+</span><span>-</span>
@@ -287,7 +321,7 @@
 					<input type="number" placeholder="Tiempo de Trabajo" />
 				</div>
 			</fieldset>
-		    <fieldset id="" title="Paso 5">
+		    <fieldset id="step5" title="Paso 5">
 			  <legend>Intereses Generales</legend>
 			  <label for="">prueba 1</label><input type="text" name="" value="" id=""/>			  		 
 			</fieldset>
