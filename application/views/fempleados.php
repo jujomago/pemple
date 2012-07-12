@@ -220,7 +220,8 @@
 			  <input type="button" value="Borrar" id="borrar" />
 			  <div>
 			 		<div class="combo_dinamico">					
-						<select name="cargos" id="">
+						<select name="cargos" id=""  data-placeholder="Cargos..">
+							<option></option>
 							<?php foreach ($cargos->result() as $cargo): ?>
 								<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>
 							<?php endforeach ?>
@@ -229,7 +230,8 @@
 						<input type="text"  class="nuevo" style="display:none" focus/>
 					</div>
 					<div class="combo_dinamico">	
-						<select name="sucursales" id="">
+						<select name="sucursales" id="" data-placeholder="Empresas..">
+							<option></option>
 							<?php foreach ($sucursales->result() as $suc): ?>
 								<option value=<?=$suc->id_sucursal?>><?=$suc->sucursal?></option>
 							<?php endforeach ?>
@@ -243,17 +245,26 @@
 			<fieldset id="step4" title="Paso 4">
 			  <legend>Compentencias</legend>
 			 	<div>
-					<span>+</span><span>-</span>
-					<select name="" id="">
-						<?php foreach ($compentencias->result() as $compet): ?>
-							<option value=<?=$compet->id_competencia?>><?=$compet->competencia?></option>
-						<?php endforeach ?>
-					</select>
-					<select name="" id="">
-						<?php foreach ($instituciones->result() as $insti): ?>
-							<option value=<?=$insti->id_institucion?>><?=$insti->institucion?></option>
-						<?php endforeach ?>
-					</select>
+					<div class="combo_dinamico">
+						<select name="competencias" data-placeholder="Competencias..">
+						<option></option>
+							<?php foreach ($compentencias->result() as $compet): ?>
+								<option value=<?=$compet->id_competencia?>><?=$compet->competencia?></option>
+							<?php endforeach ?>
+						</select>
+						<a href="#" class="nuevo">nuevo</a>
+						<input type="text"  class="nuevo" style="display:none" focus/>
+					</div>
+					<div class="combo_dinamico">
+						<select name="instituciones" data-placeholder="Instituciones.." id="">
+						<option></option>
+							<?php foreach ($instituciones->result() as $insti): ?>
+								<option value=<?=$insti->id_institucion?>><?=$insti->institucion?></option>
+							<?php endforeach ?>
+						</select>
+						<a href="#" class="nuevo">nuevo</a>
+						<input type="text"  class="nuevo" style="display:none" focus/>
+					</div>
 					<input type="number" placeholder="Tiempo de Trabajo" />
 				</div>
 			</fieldset>

@@ -187,7 +187,7 @@
 	 
 	 
 	    function _example_output($output = null){
-	        // $this->load->view('niveles',$output);    
+	       
 	    	$this->template->set('titulo',"Gestionar Empresas");
 			$this->template->view('template_crud',$output);
 	    }
