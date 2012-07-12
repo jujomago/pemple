@@ -7,21 +7,36 @@
 	<title><?=$titulo?></title>
 	
 	
-	<?php print_r($reqjs) ?>
 	
 	<link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
 	<!--[if lt IE 9]>
 	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	<script src="js/jquery-1.5.2.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.datepicker-es.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/smoothness/jquery-ui-1.8.21.custom.css"/> 
+	<link rel="stylesheet" href="chosen/chosen.css" />
 	<script src="js/hideshow.js" type="text/javascript"></script>
 	<script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/jquery.equalHeight.js"></script>
+	
+	<?php if(isset($js_extras)): ?>
+		<?php foreach($js_extras as $file): ?>
+	   		 <script src="<?php echo $file; ?>"></script>
+		<?php endforeach; ?>
+	<?php endif;?>
+	<?php if (isset($css_extras)): ?>
+		<?php foreach($css_extras as $file): ?>
+		    <script src="<?php echo $file; ?>"></script>
+		<?php endforeach; ?>
+	<?php endif;?>
+
 	<script type="text/javascript">
 	$(document).ready(function() 
     	{ 
-      	  $(".tablesorter").tablesorter(); 
+      	//  $(".tablesorter").tablesorter(); 
    	 } 
 	);
 	$(document).ready(function() {
@@ -58,8 +73,16 @@
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="index.html">Website Admin</a></h1>
-			<h2 class="section_title">Dashboard</h2><div class="btn_view_site"><a href="http://www.medialoot.com">View Site</a></div>
+			<h1 class="site_title"><a href="index.html">Proyecto empleabilidad</a></h1>
+			<h2 class="section_title">Dashboard</h2><div class="btn_view_site"><a href="http://www.medialoot.com">Ver el portal</a></div>
 		</hgroup>
 	</header> <!-- end of header bar -->
-	
+		<section id="secondary_bar">
+		<div class="user">
+			<p>jujomago <!-- (<a href="#">3 Messages</a>) --></p>
+			<!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
+		</div>
+		<!-- <div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="index.html">Website Admin</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
+		</div> -->
+	</section><!-- end of secondary bar -->

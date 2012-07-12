@@ -1,0 +1,100 @@
+.wizard * {
+  font-size: 13px !important;
+}
+.wizard input {
+  padding: 3px 5px;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 7px;
+  margin-bottom: 5px;
+  border: 1px solid #cccc;
+}
+.wizard input[type="button"] {
+  padding: 2px 6px;
+  height: auto;
+  background: #bbb;
+  color: #fff;
+}
+.wizard input[type="text"] {
+  box-shadow: inset 0 -2px 5px #eeeeee;
+  width: auto;
+  display: inline;
+  float: none;
+  margin-bottom: 5px;
+}
+.wizard .grupo {
+  height: auto;
+}
+.wizard .grupo h3 {
+  margin: 5px 0;
+}
+.wizard .formemple-buttons {
+  position: absolute;
+  bottom: 0;
+  width: 97%;
+}
+.wizard select {
+  width: 200px;
+}
+.wizard fieldset > div {
+  background: #eee;
+  margin: 5px 0;
+  padding: 4px;
+}
+.wizard fieldset > div * {
+  vertical-align: top;
+}
+.wizard fieldset .combo_dinamico {
+  display: inline-block;
+}
+.wizard fieldset .combo_dinamico .nuevo {
+  display: block;
+  margin-top: 5px;
+}
+#formemple-titles {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+#formemple-titles li {
+  padding: 8px 9px 8px 26px;
+  position: relative;
+  background: #ccc;
+}
+#formemple-titles li div,
+#formemple-titles li span {
+  color: white;
+}
+#formemple-titles li:after {
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 22px solid #ccc;
+  border-top: 24px solid transparent;
+  border-bottom: 27px solid transparent;
+  position: absolute;
+  right: -22px;
+  top: 0;
+  z-index: 3;
+}
+#formemple-titles li.current-step {
+  background: #4080BF;
+}
+#formemple-titles li.current-step div,
+#formemple-titles li.current-step span {
+  color: white;
+}
+#formemple-titles li.current-step:after {
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 22px solid #4080BF;
+  border-top: 24px solid transparent;
+  border-bottom: 27px solid transparent;
+  position: absolute;
+  right: -22px;
+  top: 0;
+}
+
+/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */

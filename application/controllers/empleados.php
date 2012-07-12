@@ -17,8 +17,9 @@
 			$data['compentencias']=$this->db->get_where('emp_competencias',$where);
 			$data['instituciones']=$this->db->get_where('emp_instituciones',$where);
 			
-			$this->load->view('fempleados',$data);
-			
+			//$this->load->view('fempleados',$data);
+			$this->template->set('titulo',"Formulario Empleados");
+			$this->template->view('fempleados',$data);
 			
 			
 			

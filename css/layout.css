@@ -22,7 +22,7 @@ height: 20px;
 }
 
 a:link, a:visited {
-color: #77BACE;
+/*color: #77BACE;*/
 text-decoration: none;
 }
 
@@ -362,11 +362,12 @@ margin-top: 20%;
 
 
 section#main {
-width: 77%;
+width: 74%;
 min-height: 500px;
 background: url(../images/sidebar_shadow.png) repeat-y left top;
 float: left;
 margin-top: -2px;
+padding:10px 20px 0px;
 }
 
 #main h3 {
@@ -591,7 +592,7 @@ border: 1px solid #A8A9A8;
 -moz-box-shadow: 0 1px 0 #fff;
 box-shadow: 0 1px 0 #fff;
 font-weight: bold;
-height: 22px;
+height: auto;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
@@ -881,3 +882,10 @@ color: #32510F;
 padding: 10px 0;
 text-indent: 40px;
 font-size: 14px;}
+
+
+
+
+#main h3.form-title{
+	margin:0;
+}

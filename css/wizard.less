@@ -1,0 +1,112 @@
+.wizard{
+	*{
+		font-size:13px !important;
+	}
+		input{
+	    padding:3px 5px;
+	    height:18px;
+	    line-height:18px;
+	    border-radius:7px;
+	    margin-bottom: 5px;
+	    border:1px solid #cccc;
+	 
+	    &[type="button"]{
+	   		 padding:2px 6px;
+	    	height:auto;
+	    	background:#bbb;
+	    	color:#fff; 
+		 }
+		 &[type="text"]{
+		 	 box-shadow:inset 0 -2px 5px #eee;
+		 	 width: auto;
+		 	 display: inline;
+		 	 float: none;
+		 	 margin-bottom: 5px;
+		 }
+		} 
+
+	
+		.grupo{
+		  height:auto;
+		  h3{
+		  margin:5px 0;
+			}
+		}
+	.formemple-buttons{
+	  position: absolute;
+	  bottom:0;
+	  width:97%;
+	}
+	 select{
+	  width:200px;
+	}
+
+
+			fieldset > div{
+				background:#eee;
+				margin:5px 0;
+				padding:4px;
+			}
+				fieldset > div *{
+					vertical-align: top;
+				}
+			fieldset .combo_dinamico{
+				display:inline-block;
+			}
+			fieldset .combo_dinamico .nuevo{
+				display: block;
+				margin-top: 5px;
+			}
+			fieldset .combo_dinamico input.nuevo:active
+		
+			{
+			//	width:200px;
+			}
+}
+#formemple-titles{
+	margin-bottom: 10px;
+	overflow: hidden;
+	li{
+		padding:8px 9px 8px 26px;
+		position: relative;
+		background:#ccc;
+		div,span{
+				color:white;
+			}
+		&:after{
+			display: block;
+			content:'';
+		    width: 0;
+			height: 0;
+			border-left: 22px solid #ccc;
+			border-top: 24px solid transparent;
+			border-bottom: 27px solid transparent;
+			position: absolute;
+			right: -22px;
+			top: 0;
+			z-index: 3;
+		}
+
+
+		&.current-step{
+			background: #4080BF;
+			div,span{
+				color:white;
+			}
+			&:after{
+				display: block;
+				content:'';
+			    width: 0;
+				height: 0;
+				border-left: 22px solid #4080BF;
+				border-top: 24px solid transparent;
+				border-bottom: 27px solid transparent;
+				position: absolute;
+				right: -22px;
+				top: 0;
+			}
+		}
+
+	}
+
+}
