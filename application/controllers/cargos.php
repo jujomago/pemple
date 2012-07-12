@@ -17,30 +17,32 @@
 			}
 		}
 		function abm(){
-			$this->grocery_crud->set_language('spanish');
-			$this->grocery_crud->set_table('emp_cargos');
+			$crud=new grocery_CRUD();
+			$crud->set_language('spanish');
+			$crud->set_table('emp_cargos');
+			$crud->set_theme('datatables');
+			$crud->set_subject('cargo');
+			
+			$crud->display_as('id_cargo',"ID");
+			
+			$crud->display_as('fec_registro',"Creado en");
+			$crud->display_as('fec_modificacion',"Modificado en");
+			$crud->display_as('ult_usuario',"Ultimo Usuario");
 			
 			
-			$this->grocery_crud->display_as('id_cargo',"ID CARGO");
-			
-			$this->grocery_crud->display_as('fec_registro',"Creado en");
-			$this->grocery_crud->display_as('fec_modificacion',"Modificado en");
-			$this->grocery_crud->display_as('ult_usuario',"Ultimo Usuario");
-			
-			
-			$this->grocery_crud->add_fields('cargo','ult_usuario');
-			$this->grocery_crud->edit_fields('cargo','fec_modificacion','ult_usuario');
+			$crud->add_fields('cargo','ult_usuario');
+			$crud->edit_fields('cargo','fec_modificacion','ult_usuario');
 		
-			$this->grocery_crud->change_field_type('ult_usuario', 'hidden', 1);
-			$this->grocery_crud->change_field_type('estado', 'true_false');			
-			$this->grocery_crud->change_field_type('fec_modificacion', 'datetime');
+			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('estado', 'true_false');			
+			$crud->change_field_type('fec_modificacion', 'datetime');
 	
-			$this->grocery_crud->callback_edit_field('estado',array($this,'editar_campo_estado'));
-			$this->grocery_crud->callback_delete(array($this,'desactivar_noborrar'));
-			$this->grocery_crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
+			$crud->callback_edit_field('estado',array($this,'editar_campo_estado'));
+			$crud->callback_delete(array($this,'desactivar_noborrar'));
+			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			
 			
-			$output=$this->grocery_crud->render();
+			$output=$crud->render();
 			
 	      	$this->_example_output($output);        
 	    }
@@ -71,8 +73,8 @@
 		}
 	
 	    function _example_output($output = null){
-	        $this->load->view('cargos',$output);    
-	 /*   	$this->template->set('titulo',"Agregar Paises");
-			$this->template->view('paises',$output);
-	   */ }
+	      //  $this->load->view('cargos',$output);    
+	    	$this->template->set('titulo',"Gestionar Cargos");
+			$this->template->view('template_crud',$output);
+	    }
 	}

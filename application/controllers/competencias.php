@@ -24,12 +24,14 @@
 			$crud->set_table('emp_competencias');
 			
 			$crud->set_language('spanish');
-			$crud->set_subject('competencias');
-//   			$crud->set_theme('datatables');
+			$crud->set_subject('competencia');
+			$crud->set_theme('datatables');
 
 			$crud->add_fields('competencia','id_tipo_competencia','ult_usuario');
 			$crud->edit_fields('competencia','id_tipo_competencia','estado','ult_usuario','fec_modificacion');
 			
+			$crud->display_as('id_competencia',"ID");
+
 			$crud->change_field_type('ult_usuario', 'hidden', 1);
 			$crud->change_field_type('fec_modificacion', 'datetime');
 			$crud->set_relation('id_tipo_competencia','emp_tipo_competencias','tipo_competencia');
@@ -72,8 +74,8 @@
 
 	 
 	    function _example_output($output = null){
-	        $this->load->view('niveles',$output);    
-	 /*   	$this->template->set('titulo',"Agregar Paises");
-			$this->template->view('paises',$output);
-	   */ }
+	        // $this->load->view('niveles',$output);    
+	  		$this->template->set('titulo',"Gestionar Competencias");
+			$this->template->view('template_crud',$output);
+	   }
 	}

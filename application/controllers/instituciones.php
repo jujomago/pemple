@@ -25,13 +25,14 @@
 			$crud->set_table('emp_instituciones');
 			
 			$crud->set_language('spanish');
-			$crud->set_subject('instituciones');
+			$crud->set_subject('institucion');
    			$crud->set_theme('datatables');
 		
 		
 			$crud->add_fields('institucion','sigla','ult_usuario');
 			$crud->edit_fields('institucion','sigla','estado','ult_usuario','fec_modificacion');
-		
+			$crud->display_as('id_institucion',"ID");
+
 			$crud->change_field_type('ult_usuario', 'hidden', 1);
 			$crud->change_field_type('fec_modificacion', 'datetime');
 		
@@ -75,6 +76,7 @@
 			 
 	 
 	    function _example_output($output = null){
-	        $this->load->view('niveles',$output);    
+	        $this->template->set('titulo',"Gestionar Instituciones");
+			$this->template->view('template_crud',$output);
 	  }
 	}

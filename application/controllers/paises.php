@@ -19,34 +19,38 @@
 			}
 		}
 		function abm(){
-			$this->grocery_crud->set_language('spanish');
-			$this->grocery_crud->set_table('paises');
+			$crud=new grocery_CRUD();
+
+			$crud->set_language('spanish');
+			$crud->set_table('paises');
+			$crud->set_subject('pais');
+   			$crud->set_theme('datatables');
 			
-			$this->grocery_crud->columns("id_pais","pais","nacionalidad","fec_registro","fec_modificacion","estado","ult_usuario");
-			$this->grocery_crud->display_as('id_pais',"ID PAIS");
-			$this->grocery_crud->display_as('fec_registro',"Creado en");
-			$this->grocery_crud->display_as('fec_modificacion',"Modificado en");
-			$this->grocery_crud->display_as('id_pais',"ID PAIS");
-			$this->grocery_crud->display_as('ult_usuario',"Ultimo Usuario");
+			$crud->columns("id_pais","pais","nacionalidad","fec_registro","fec_modificacion","estado","ult_usuario");
+			$crud->display_as('id_pais',"ID PAIS");
+			$crud->display_as('fec_registro',"Creado en");
+			$crud->display_as('fec_modificacion',"Modificado en");
+			$crud->display_as('id_pais',"ID PAIS");
+			$crud->display_as('ult_usuario',"Ultimo Usuario");
 			
 			
-			//$this->grocery_crud->where('estado','A');
-			$this->grocery_crud->add_fields('pais','nacionalidad','ult_usuario');
-			$this->grocery_crud->edit_fields('pais','nacionalidad','estado','ult_usuario','fec_modificacion');
+			//$crud->where('estado','A');
+			$crud->add_fields('pais','nacionalidad','ult_usuario');
+			$crud->edit_fields('pais','nacionalidad','estado','ult_usuario','fec_modificacion');
 		
-			$this->grocery_crud->change_field_type('ult_usuario', 'hidden', 1);
-			$this->grocery_crud->change_field_type('estado', 'true_false');
-			$this->grocery_crud->change_field_type('nacionalidad', 'string');
-			$this->grocery_crud->change_field_type('fec_modificacion', 'datetime');
+			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('estado', 'true_false');
+			$crud->change_field_type('nacionalidad', 'string');
+			$crud->change_field_type('fec_modificacion', 'datetime');
 			
 			
-		 	//$this->grocery_crud->callback_update(array($this,'luegomodificar'));
-			$this->grocery_crud->callback_edit_field('estado',array($this,'editar_campo_estado'));
-			$this->grocery_crud->callback_delete(array($this,'desactivar_noborrar'));
-			$this->grocery_crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
+		 	//$crud->callback_update(array($this,'luegomodificar'));
+			$crud->callback_edit_field('estado',array($this,'editar_campo_estado'));
+			$crud->callback_delete(array($this,'desactivar_noborrar'));
+			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			
 			
-			$output=$this->grocery_crud->render();
+			$output=$crud->render();
 			
 	      	$this->_example_output($output);        
 	    }
@@ -85,7 +89,7 @@
 	 
 	    function _example_output($output = null){
 	    //    $this->load->view('paises.php',$output);    
-	    	$this->template->set('titulo',"Agregar Paises");
-			$this->template->view('paises',$output);
+	    	$this->template->set('titulo',"Gestionar Paises");
+			$this->template->view('template_crud',$output);
 	    }
 	}

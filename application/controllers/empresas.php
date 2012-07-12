@@ -61,7 +61,7 @@
 			'id_localidad',
 			'id_municipio'
 			);
-			$crud->columns('id_sucursal','sucursal','direccion','celular','telefono','fax','email','pagina_web','tipo_sucursal','nro_empleados');
+			$crud->columns('id_sucursal','sucursal','direccion','celular','telefono','fax','email','tipo_sucursal','nro_empleados');
 			$crud->display_as('id_sucursal',"ID");
 			$crud->display_as('nro_empleados',"# Empleados");
 			$crud->display_as('fec_registro',"Creado en");
@@ -71,7 +71,7 @@
 			$crud->display_as('id_provincia','Provincia');
 			$crud->display_as('id_localidad','Localidad');
 			$crud->display_as('id_municipio','Municipio');
-			$crud->display_as('sucursal','Nombre de la Empresa');
+			$crud->display_as('sucursal','Nombre');
 			$crud->display_as('tipo_sucursal','Tipo');
 			
 			
@@ -187,8 +187,8 @@
 	 
 	 
 	    function _example_output($output = null){
-	        $this->load->view('niveles',$output);    
-	 /*   	$this->template->set('titulo',"Agregar Paises");
-			$this->template->view('paises',$output);
-	   */ }
+	        // $this->load->view('niveles',$output);    
+	    	$this->template->set('titulo',"Gestionar Empresas");
+			$this->template->view('template_crud',$output);
+	    }
 	}

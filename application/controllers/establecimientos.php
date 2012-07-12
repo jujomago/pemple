@@ -11,11 +11,7 @@
 			 
 		}
 		function index(){
-			echo "this is just a test";
-			$query=$this->db->get('vusuario_persona');
-			foreach ($query->result() as $userper) {
-				print_r($userper);
-			}
+		
 		}
 
 		/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
@@ -31,34 +27,38 @@
 
 
 		function abm(){
-			$this->grocery_crud->set_language('spanish');
-			$this->grocery_crud->set_table('emp_establecimientos');
-			$this->grocery_crud->set_theme('datatables');
+			$crud=new grocery_CRUD();
+			$crud->set_language('spanish');
+			$crud->set_table('emp_establecimientos');
+			$crud->set_theme('datatables');
+			$crud->set_subject('establecimiento');
+
+
+			$crud->columns("id_establecimiento","id_tipo_est","establecimiento","sigla","fec_registro","fec_modificacion","estado","ult_usuario");
+			$crud->display_as('id_establecimiento',"ID");
+			$crud->display_as('id_tipo_establecimiento',"ID ESTABLECIMIENTO");
+			$crud->display_as('id_tipo_est',"Tipo");
+			$crud->display_as('fec_registro',"Creado en");
+			$crud->display_as('fec_modificacion',"Modificado en");
+			$crud->display_as('ult_usuario',"Ultimo Usuario");
 			
-			$this->grocery_crud->columns("id_establecimiento","id_tipo_est","establecimiento","sigla","fec_registro","fec_modificacion","estado","ult_usuario");
-			$this->grocery_crud->display_as('id_tipo_establecimiento',"ID ESTABLECIMIENTO");
-			$this->grocery_crud->display_as('id_tipo_est',"Tipo");
-			$this->grocery_crud->display_as('fec_registro',"Creado en");
-			$this->grocery_crud->display_as('fec_modificacion',"Modificado en");
-			$this->grocery_crud->display_as('ult_usuario',"Ultimo Usuario");
 			
-			
-			$this->grocery_crud->add_fields('establecimiento','sigla',"id_tipo_est",'ult_usuario');
-			$this->grocery_crud->edit_fields('establecimiento','sigla',"id_tipo_est",'estado','ult_usuario','fec_modificacion');
+			$crud->add_fields('establecimiento','sigla',"id_tipo_est",'ult_usuario');
+			$crud->edit_fields('establecimiento','sigla',"id_tipo_est",'estado','ult_usuario','fec_modificacion');
 		
-			$this->grocery_crud->change_field_type('ult_usuario', 'hidden', 1);
-			$this->grocery_crud->change_field_type('estado', 'true_false');			
-			$this->grocery_crud->change_field_type('fec_modificacion', 'datetime');
+			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('estado', 'true_false');			
+			$crud->change_field_type('fec_modificacion', 'datetime');
 			
-			$this->grocery_crud->set_relation('id_tipo_est','emp_tipo_establecimientos','tipo_establecimiento');
+			$crud->set_relation('id_tipo_est','emp_tipo_establecimientos','tipo_establecimiento');
 			
 		
-			$this->grocery_crud->callback_edit_field('estado',array($this,'editar_campo_estado'));
-			$this->grocery_crud->callback_delete(array($this,'desactivar_noborrar'));
-			$this->grocery_crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
+			$crud->callback_edit_field('estado',array($this,'editar_campo_estado'));
+			$crud->callback_delete(array($this,'desactivar_noborrar'));
+			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			
 			
-			$output=$this->grocery_crud->render();
+			$output=$crud->render();
 			
 	      	$this->_example_output($output);        
 	    }
@@ -89,8 +89,8 @@
 		}
 	
 	    function _example_output($output = null){
-	        $this->load->view('establecimientos',$output);    
-	 /*   	$this->template->set('titulo',"Agregar Paises");
-			$this->template->view('paises',$output);
-	   */ }
+	       // $this->load->view('template_crud',$output);    
+	 	 	$this->template->set('titulo',"Gestionar Establecimientos");
+			$this->template->view('template_crud',$output);
+	   	 }
 	}
