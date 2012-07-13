@@ -18,6 +18,18 @@
 				print_r($userper);
 			}
 		}
+
+			    	/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
+		function agregar(){
+			$estab=$this->input->post('campo');
+			$data=array(
+					"competencia"=>$estab,
+					"ult_usuario"=>1
+			);
+			$this->db->insert('emp_competencias',$data);
+			echo $this->db->insert_id();
+		}
+
 		function abm(){
 			
 			$crud=new grocery_CRUD();

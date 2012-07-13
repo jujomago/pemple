@@ -16,7 +16,7 @@
 
 		/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
 		function agregar(){
-			$estab=$this->input->post('establecimiento');
+			$estab=$this->input->post('campo');
 			$data=array(
 					"establecimiento"=>$estab,
 					"ult_usuario"=>1
@@ -57,7 +57,7 @@
 			$crud->callback_delete(array($this,'desactivar_noborrar'));
 			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			
-			
+		
 			$output=$crud->render();
 			
 	      	$this->_example_output($output);        

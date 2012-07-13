@@ -16,6 +16,8 @@
 			$data['sucursales']=$this->db->get_where('emp_sucursales',$where);
 			$data['compentencias']=$this->db->get_where('emp_competencias',$where);
 			$data['instituciones']=$this->db->get_where('emp_instituciones',$where);
+			$data['cursos_capacitacion']=$this->db->get_where('emp_cursos_capacitaciones',$where);
+			
 			
 			//$this->load->view('fempleados',$data);
 			$this->template->set('titulo',"Formulario Empleados");

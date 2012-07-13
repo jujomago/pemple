@@ -18,6 +18,24 @@
 				print_r($userper);
 			}
 		}
+		/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
+		function agregar(){
+			$estab=$this->input->post('campo');
+		
+			$data=array(
+				'ult_usuario'=>1
+			);
+
+			$this->db->insert('emp_empresas',$data);
+			$id_empresa=$this->db->insert_id();
+			$post_array['id_empresa']=$id_empresa;
+			$post_array['ult_usuario']=1;
+			$post_array['sucursal']=$estab;
+			$this->db->insert('emp_sucursales',$post_array);
+			echo $this->db->insert_id();
+
+		}
+
 		function abm(){
 			
 			$crud=new grocery_CRUD();

@@ -13,6 +13,7 @@
 			<li class="icn_edit_article"><a href="empresas/abm">Empresas</a></li>
 			<li class="icn_edit_article"><a href="instituciones/abm">Instituciones</a></li>
 			<li class="icn_edit_article"><a href="paises/abm">Paises</a></li>
+			<li class="icn_edit_article"><a href="cursos_capacitaciones/abm">Cursos Capacitaciones</a></li>
 <!-- 			<li class="icn_new_article"><a href="#">New Article</a></li>
 			<li class="icn_categories"><a href="#">Categories</a></li>
 			<li class="icn_tags"><a href="#">Tags</a></li> -->

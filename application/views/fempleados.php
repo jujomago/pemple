@@ -25,7 +25,8 @@
 			$(function(){
 				$('#formemple').stepy({
 					 backLabel:      'Anterior',
-					 nextLabel:      'Siguiente'
+					 nextLabel:      'Siguiente',
+					  titleClick:     true,
 				});
 			//	$( ".fecha" ).datepicker();
 				 
@@ -42,23 +43,32 @@
 			
 					var refinput=$(this);
 
+					laurl=refinput.attr("data-href");
+					valor=this.value;
+
+
 					if ( code == 13 ) {
 
 							console.log("entro aqui");
-								
-							$.post('<?=base_url("establecimientos/agregar")?>', 
-								   {"establecimiento": this.value} ,
+
+							datos={campo: valor}; 
+							
+							$.post(laurl, 
+								    datos,
 								   function(data) {
 						
 								   	newitem="<option value="+data+" selected>"+refinput.val();
-						
-  									refinput.parent().children("select").append(newitem);
-  									
-									refinput.parent().children("select").trigger("liszt:updated");
-  								
+									refinput.parent().children("select").append(newitem);
+  									refinput.parent().children("select").trigger("liszt:updated");
   									refinput.val('').hide();
   									$(".combo_dinamico a").show();
-								});				
+								});		
+
+
+
+
+
+
 						event.preventDefault();
      						
    					}else if(code == 27){
@@ -68,14 +78,14 @@
 				}); 
 
 
-				$(".combo_dinamico  select,.chzn-select").chosen({no_results_text: "No hay resultados"});
+			
 				$("#agregar,#borrar").click(function(){
 
 
 
 						    step2="<div><select name=niveles data-placeholder='Nivel de Educación..'>";
+						    step2+="<option/>";
 							step2+="<?php foreach ($niveles->result() as $nivel): ?>";
-							step2+="<option/>";
 							step2+="<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>";
 							step2+="<?php endforeach ?>";
 						    step2+="</select>";
@@ -93,45 +103,83 @@
 							step2+="<input type=text placeholder=Tiempo de estudio />";
 							step2+="</div>";
 
- 			 // step2+="<div>";
-			 	// 	step2+=<div class=combo_dinamico>";					
-					// 	step2+=<select name=cargos id=>";
-					// 		step2+=<?php foreach ($cargos->result() as $cargo): ?>";
-					// 			step2+=<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>";
-					// 		step2+=<?php endforeach ?>";
-					// 	step2+=</select>";
-					// 	step2+=step2+=<a href=# class=nuevo>nuevo</a>";
-					// 	<input type=text  class=nuevo style=display:none focus/>";";
-					// step2+=</div>";
-					// step2+=<div class=combo_dinamico>	";
-					// 	step2+=<select name=sucursales id=>";
-					// 		step2+=<?php foreach ($sucursales->result() as $suc): ?>";
-					// 			step2+=step2+=<option value=<?=$suc->id_sucursal?>><?=$suc->sucursal?></option>";
-					// 		step2+=<?php endforeach ?>";
-					// 	step2+=</select>";
-					// 	step2+=<a href=# class=nuevo>nuevo</a>";
-					// 	step2+=<input type=text  class=nuevo style=display:none focus/>";
-					// step2+=</div>";
-					// step2+=<input type=number placeholder=Tiempo de Trabajo />";
-			  //  step2+=</div>";
+							  step3="<div>";
+							 		 step3+="<div class=combo_dinamico>";					
+										 step3+="<select name=cargos  data-placeholder='Cargos..'>";
+											 step3+="<option/>";
+											 step3+="<?php foreach ($cargos->result() as $cargo): ?>";
+												 step3+="<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>";
+											 step3+="<?php endforeach ?>";
+										 step3+="</select>";
+										 step3+="<a href=# class=nuevo>nuevo</a>";
+										 step3+="<input type=text  class=nuevo style=display:none focus/>";
+									 step3+="</div>";
+									 step3+="<div class=combo_dinamico>";	
+										 step3+="<select name=sucursales data-placeholder='Empresas..'>";
+											 step3+="<option />";
+											 step3+="<?php foreach ($sucursales->result() as $suc): ?>";
+												 step3+="<option value=<?=$suc->id_sucursal?>><?=$suc->sucursal?></option>";
+											 step3+="<?php endforeach ?>";
+										 step3+="</select>";
+										 step3+="<a href=# class=nuevo>nuevo</a>";
+										 step3+="<input type=text  class=nuevo style=display:none focus/>";
+									 step3+="</div>";
+									 step3+="<input type=number placeholder=Tiempo de Trabajo />";
+							    step3+="</div>";
 
+
+
+				step4="<div>";
+					step4+="<div class=combo_dinamico>";
+						step4+="<select name=competencias data-placeholder=Competencias..>";
+						step4+="<option></option>";
+							step4+="<?php foreach ($compentencias->result() as $compet): ?>";
+								step4+="<option value=<?=$compet->id_competencia?>><?=$compet->competencia?></option>";
+							step4+="<?php endforeach ?>";
+						step4+="</select>";
+						step4+="<a href=# class=nuevo>nuevo</a>";
+						step4+="<input type=text  class=nuevo style=display:none focus/>";
+					step4+="</div>";
+					step4+="<div class=combo_dinamico>";
+						step4+="<select name=instituciones data-placeholder=Instituciones..>";
+						step4+="<option></option>";
+							step4+="<?php foreach ($instituciones->result() as $insti): ?>";
+								step4+="<option value=<?=$insti->id_institucion?>><?=$insti->institucion?></option>";
+							step4+="<?php endforeach ?>";
+						step4+="</select>";
+						step4+="<a href=# class=nuevo>nuevo</a>";
+						step4+="<input type=text  class=nuevo style=display:none focus/>";
+					step4+="</div>";
+					step4+="<input type=text class=fecha placeholder=Fecha />";
+				step4+="</div>";
 
 
 
 					if(this.value=="Agregar"){
-						    if($(this).parent().children("div").length<=6){
+						padre=$(this).parent();
+						console.log(padre.attr("id"));
 
-
-
-
-
-							$(this).parent().append(step2);
-							$(this).parent().children("div:last").find("select").chosen({no_results_text: "No hay resultados"});
+						   if(padre.children("div").length<=6){
+						    	if(padre.attr("id")=="formemple-step-1"){
+									padre.append(step2);
+								}else if(padre.attr("id")=="formemple-step-2"){
+									padre.append(step3);
+								}else if(padre.attr("id")=="formemple-step-3"){
+									padre.append(step4);
+								}
+							padre.children("div:last").find("select").chosen({no_results_text: "No hay resultados"});
+							padre.children("div:last").find(".fecha").datepicker({
+																		changeMonth: true,
+																		changeYear: true,
+																	 	minDate: "-40Y",
+																	 	defaultDate:"08/02/1985"
+																	 //	maxDate: "+20Y" 
+																	});
 						}
 					}else{
-						if($(this).parent().children("div").length>1){
+						if(padre.children("div").length>1){
 
-							$(this).parent().children("div:last").remove();
+							padre.children("div:last").remove();
 						}
 					}
 
@@ -139,6 +187,7 @@
 
 				/*####inicio de los componentes##########*/
 				$(".filtrable").chosen({no_results_text: "No hay resultados"});
+				$(".combo_dinamico  select,.chzn-select").chosen({no_results_text: "No hay resultados"});
 
 				$(".fecha").datepicker({
 					changeMonth: true,
@@ -153,9 +202,9 @@
 		</script>	
 	</head>
 	<body>
-		<?=base_url();?>
+	
 		<form id="formemple" action="#" class="wizard">
-			<fieldset title="Paso 1" id="step1">
+			<fieldset title="Paso 1">
 				<legend>Inicio</legend>
 				<div class="grupo">
 				  <h3>Datos Personales</h3>
@@ -188,7 +237,7 @@
 				 	  <input type="text" placeholder="Pagina Web" name="web" />				 
 				</div>		 
 			</fieldset>
-			<fieldset title="Paso 2" id="step2">
+			<fieldset title="Paso 2">
 				<legend>Estudio Realizados</legend>
 				<input type="button" value="Agregar" id="agregar" />
 				<input type="button" value="Borrar" id="borrar" />
@@ -207,14 +256,15 @@
 							<?php endforeach ?>
 						</select>
 						<a href="#" class="nuevo">nuevo</a>
-						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" style="display:none" focus/>
+						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
+						style="display:none" data-href="<?=base_url('establecimientos/agregar')?>" focus/>
 					</div>
 
 					<input type="text" placeholder="Titulo obtenido" />
 					<input type="text" placeholder="Tiempo de estudio" />
 				</div>			 
 			</fieldset>
-			<fieldset title="Paso 3" id="step3">
+			<fieldset title="Paso 3">
 			  <legend>Experiencia de Trabajo</legend>
 			  <input type="button" value="Agregar" id="agregar" />
 			  <input type="button" value="Borrar" id="borrar" />
@@ -227,7 +277,8 @@
 							<?php endforeach ?>
 						</select>
 						<a href="#" class="nuevo">nuevo</a>
-						<input type="text"  class="nuevo" style="display:none" focus/>
+						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
+						style="display:none" data-href="<?=base_url('cargos/agregar')?>" focus/>
 					</div>
 					<div class="combo_dinamico">	
 						<select name="sucursales" id="" data-placeholder="Empresas..">
@@ -237,13 +288,16 @@
 							<?php endforeach ?>
 						</select>
 						<a href="#" class="nuevo">nuevo</a>
-						<input type="text"  class="nuevo" style="display:none" focus/>
+						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
+						style="display:none" data-href="<?=base_url('empresas/agregar')?>" focus/>
 					</div>
 					<input type="number" placeholder="Tiempo de Trabajo" />
 			   </div>
 			</fieldset>
 			<fieldset id="step4" title="Paso 4">
-			  <legend>Compentencias</legend>
+			  <legend>Compentencias certificadas</legend>
+			   <input type="button" value="Agregar" id="agregar" />
+			   <input type="button" value="Borrar" id="borrar" />
 			 	<div>
 					<div class="combo_dinamico">
 						<select name="competencias" data-placeholder="Competencias..">
@@ -253,26 +307,54 @@
 							<?php endforeach ?>
 						</select>
 						<a href="#" class="nuevo">nuevo</a>
-						<input type="text"  class="nuevo" style="display:none" focus/>
+						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
+						style="display:none" data-href="<?=base_url('competencias/agregar')?>" focus/>
 					</div>
 					<div class="combo_dinamico">
-						<select name="instituciones" data-placeholder="Instituciones.." id="">
+						<select name="instituciones" data-placeholder="Instituciones..">
 						<option></option>
 							<?php foreach ($instituciones->result() as $insti): ?>
 								<option value=<?=$insti->id_institucion?>><?=$insti->institucion?></option>
 							<?php endforeach ?>
 						</select>
 						<a href="#" class="nuevo">nuevo</a>
-						<input type="text"  class="nuevo" style="display:none" focus/>
+						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
+						style="display:none" data-href="<?=base_url('instituciones/agregar')?>" focus/>
 					</div>
-					<input type="number" placeholder="Tiempo de Trabajo" />
+					<input type="text" class="fecha" placeholder="Fecha" />
 				</div>
 			</fieldset>
 		    <fieldset id="step5" title="Paso 5">
 			  <legend>Intereses Generales</legend>
-			  <label for="">prueba 1</label><input type="text" name="" value="" id=""/>			  		 
+			   <div style="float:right;width:440px">
+              		<textarea placeholder="Observaciones.."></textarea>
+              </div>
+				<div class="combo_dinamico">
+					<h3>Desea Trabajar Como :</h3>
+					<select data-placeholder="Escoge los cargos" name="interes_cargos" class="filtrable" style="width:500px;height:auto;" multiple>
+		             		<?php foreach ($cargos->result() as $cargo): ?>
+								<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>
+							<?php endforeach ?>
+		            </select>
+		            <a href="#" class="nuevo">nuevo</a>
+					<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
+					style="display:none" data-href="<?=base_url('cargos/agregar')?>" focus/>
+              </div>
+              <div class="combo_dinamico">
+					<h3>Desea Participar en Cursos de :</h3>
+					 <select data-placeholder="Escoge los cursos" name="interes_cursos" class="filtrable" style="width:500px;height:auto;" multiple>
+		            	<?php foreach ($cursos_capacitacion->result() as $cc): ?>
+								<option value=<?=$cc->id_curso_capacitacion?>><?=$cc->curso_capacitacion?></option>
+						<?php endforeach ?>
+     	             </select>
+
+		              <a href="#" class="nuevo">nuevo</a>
+					 <input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
+						style="display:none" data-href="<?=base_url('cursos/agregar')?>" focus/>
+              </div>
+             
 			</fieldset>
-			<input type="submit" class="finish" value="Finish!" />
+			<input type="submit" class="finish" value="Finalizar registro!" />
 		</form>
 	</body>
 </html>
