@@ -68,6 +68,88 @@
 					}
 
 				});
+				$("#nv1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Seleccione un nivel de Educación"
+  						}
+					}					
+				);
+				$("#estab1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Seleccione un Establecimiento"
+  						}
+					}					
+				);
+				$("#cg1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Seleccione un Cargo"
+  						}
+					}					
+				);
+				$("#emp1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Seleccione una Empresa"
+  						}
+					}					
+				);
+				$("#tt1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Introduzca un valor para tiempo de trabajo"
+  						}
+					}					
+				);
+				$("#comp1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Selecciona una Competencia"
+  						}
+					}					
+				);
+				$("#inst1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Seleccione una Institutcion"
+  						}
+					}					
+				);
+				$("#fec1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Introduzca un valor para Fecha"
+  						}
+					}					
+				);
+				$("#intcurs1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Seleccione por lo menos un curso"
+  						}
+					}					
+				);
+				$("#intcarg1").rules("add", 
+					{
+ 						required: true,
+ 						messages: {
+  						 required: "Seleccione por lo menos un cargo"
+  						}
+					}					
+				);
+
+
 
 			//	$( ".fecha" ).datepicker();
 				 
@@ -229,9 +311,7 @@
 				/*####inicio de los componentes##########*/
 				$(".filtrable").chosen({no_results_text: "No hay resultados"});
 				$(".combo_dinamico  select,.chzn-select").chosen({no_results_text: "No hay resultados"});
-				$(".combo_dinamico  select,.chzn-select").bind("change", function(){
-					$("#formemple").validate().element($(this));
-				});
+		
 				$(".fecha").datepicker({
 					changeMonth: true,
 					changeYear: true,
@@ -294,14 +374,14 @@
 				<input type="button" value="Agregar" id="agregar" />
 				<input type="button" value="Borrar" id="borrar" />
 				<div>					
-					<select name="niveles[]" class="chzn-select" data-placeholder="Nivel de Educación.." class="required" >
+					<select name="niveles[]" id="nv1" class="chzn-select" data-placeholder="Nivel de Educación..">
 						<option></option>
 						<?php foreach ($niveles->result() as $nivel): ?>
 							<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>
 						<?php endforeach ?>
 					</select>
 					<div class="combo_dinamico">
-						<select name="establecimientos[]" data-placeholder="Establecimiento..">
+						<select name="establecimientos[]" id="estab1" data-placeholder="Establecimiento..">
 							<option></option>
 							<?php foreach ($establecimientos->result() as $e): ?>
 								<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>
@@ -322,7 +402,7 @@
 			  <input type="button" value="Borrar" id="borrar" />
 			  <div>
 			 		<div class="combo_dinamico">					
-						<select name="cargos[]" data-placeholder="Cargos..">
+						<select name="cargos[]" id="cg1" data-placeholder="Cargos..">
 							<option></option>
 							<?php foreach ($cargos->result() as $cargo): ?>
 								<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>
@@ -333,7 +413,7 @@
 						style="display:none" data-href="<?=base_url('cargos/agregar')?>" focus/>
 					</div>
 					<div class="combo_dinamico">	
-						<select name="sucursales[]"  data-placeholder="Empresas..">
+						<select name="sucursales[]" id="emp1"  data-placeholder="Empresas..">
 							<option></option>
 							<?php foreach ($sucursales->result() as $suc): ?>
 								<option value=<?=$suc->id_empresa?>><?=$suc->sucursal?></option>
@@ -343,7 +423,7 @@
 						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
 						style="display:none" data-href="<?=base_url('empresas/agregar')?>" focus/>
 					</div>
-					<input type="number" placeholder="Tiempo de Trabajo" name="tiempos_trabajo[]" /> en años
+					<input type="number" placeholder="Tiempo de Trabajo" name="tiempos_trabajo[]" id="tt1" /> en años
 			   </div>
 			</fieldset>
 			<fieldset id="step4" title="Paso 4">
@@ -352,7 +432,7 @@
 			   <input type="button" value="Borrar" id="borrar" />
 			 	<div>
 					<div class="combo_dinamico">
-						<select name="competencias[]" data-placeholder="Competencias..">
+						<select name="competencias[]" id="comp1" data-placeholder="Competencias..">
 						<option></option>
 							<?php foreach ($compentencias->result() as $compet): ?>
 								<option value=<?=$compet->id_competencia?>><?=$compet->competencia?></option>
@@ -363,7 +443,7 @@
 						style="display:none" data-href="<?=base_url('competencias/agregar')?>" focus/>
 					</div>
 					<div class="combo_dinamico">
-						<select name="instituciones[]" data-placeholder="Instituciones..">
+						<select name="instituciones[]" id="inst1" data-placeholder="Instituciones..">
 						<option></option>
 							<?php foreach ($instituciones->result() as $insti): ?>
 								<option value=<?=$insti->id_institucion?>><?=$insti->institucion?></option>
@@ -373,7 +453,7 @@
 						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
 						style="display:none" data-href="<?=base_url('instituciones/agregar')?>" focus/>
 					</div>
-					<input type="text" class="fecha" placeholder="Fecha" name="fechas_competencias[]" />
+					<input type="text" class="fecha" placeholder="Fecha" name="fechas_competencias[]" id="fec1" />
 				</div>
 			</fieldset>
 		    <fieldset id="step5" title="Paso 5">
@@ -383,7 +463,7 @@
               </div>
 				<div class="combo_dinamico">
 					<h3>Desea Trabajar Como :</h3>
-					<select data-placeholder="Escoge los cargos" name="interes_cargos[]" class="filtrable" style="width:500px;height:auto;" multiple>
+					<select data-placeholder="Escoge los cargos" name="interes_cargos[]" id="intcarg1" class="filtrable" style="width:500px;height:auto;" multiple>
 		             		<?php foreach ($cargos->result() as $cargo): ?>
 								<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>
 							<?php endforeach ?>
@@ -394,7 +474,7 @@
               </div>
               <div class="combo_dinamico">
 					<h3>Desea Participar en Cursos de :</h3>
-					 <select data-placeholder="Escoge los cursos" name="interes_cursos[]" class="filtrable" style="width:500px;height:auto;" multiple>
+					 <select data-placeholder="Escoge los cursos" name="interes_cursos[]" id="intcurs1" class="filtrable" style="width:500px;height:auto;" multiple>
 		            	<?php foreach ($cursos_capacitacion->result() as $cc): ?>
 								<option value=<?=$cc->id_curso_capacitacion?>><?=$cc->curso_capacitacion?></option>
 						<?php endforeach ?>

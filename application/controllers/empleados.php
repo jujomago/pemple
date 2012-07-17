@@ -145,7 +145,7 @@
 
 			//9 insertar en emp_frm_cargos
 
-					$interes_cargos=$this->input>post('interes_cargos');
+					$interes_cargos=$this->input->post('interes_cargos');
 					for ($i=0; $i < count($interes_cargos); $i++) { 
 						$data8=array(
 						'id_formulario'=>$id_formulario,
@@ -156,11 +156,11 @@
 					}				
 
 			//10 insertar en emp_frm_cursos_capacitaciones
-					$interes_cursos=$this->input>post('interes_cursos');
+					$interes_cursos=$this->input->post('interes_cursos');
 					for ($i=0; $i < count($interes_cursos); $i++) { 
 						$data9=array(
 						'id_formulario'=>$id_formulario,
-						'id_cargo'=>$interes_cursos[$i],
+						'id_curso_capacitacion'=>$interes_cursos[$i],
 						'ult_usuario'=>1
 						);
 						$this->db->insert('emp_frm_cursos_capacitaciones',$data9);
