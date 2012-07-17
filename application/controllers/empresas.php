@@ -32,7 +32,8 @@
 			$post_array['ult_usuario']=1;
 			$post_array['sucursal']=$estab;
 			$this->db->insert('emp_sucursales',$post_array);
-			echo $this->db->insert_id();
+			// echo $this->db->insert_id();
+			echo $id_empresa;
 
 		}
 

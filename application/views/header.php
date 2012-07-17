@@ -5,9 +5,7 @@
 	<meta charset="utf-8"/>
 	<base href="<?=base_url();?>"/>
 	<title><?=$titulo?></title>
-	
-	
-	
+		
 	<link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
 	<!--[if lt IE 9]>
 	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
