@@ -12,6 +12,9 @@
 			 
 		}
 		function index(){
+			if($this->session->userdata('LOGUEADO')==FALSE)
+			redirect('welcome');
+			
 			echo "this is just a test";
 			$query=$this->db->get('vusuario_persona');
 			foreach ($query->result() as $userper) {
@@ -20,6 +23,9 @@
 		}
 		/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
 		function agregar(){
+			if($this->session->userdata('LOGUEADO')==FALSE)
+			redirect('welcome');
+
 			$estab=$this->input->post('campo');
 		
 			$data=array(
@@ -38,7 +44,10 @@
 		}
 
 		function abm(){
-			
+			if($this->session->userdata('LOGUEADO')==FALSE)
+			redirect('welcome');
+
+
 			$crud=new grocery_CRUD();
 			$crud->set_table('emp_sucursales');
 			

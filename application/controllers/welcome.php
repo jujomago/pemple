@@ -4,11 +4,10 @@
 
 class Welcome extends CI_Controller {
 
+	var loguin=FALSE;
 
 	function Welcome(){
-		parent::__construct();
-	
-		
+		parent::__construct();		
 	} 
 	function prueba(){
 	/*	$data['titulo']="esto es una pruba";
@@ -30,11 +29,34 @@ class Welcome extends CI_Controller {
 	}
 	public function index()
 	{
-		echo "esta es una preuba";
-		$q=$this->db->get('personas');
-		print_r($q->result());
-		$this->load->view('welcome_message');
-		
+		$this->load->view('login');		
+	}
+	public function is_loquegado(){
+		$this->loguin=$this->session->userdata('LOGUEADO');
+	}
+	public function login(){
+	 	$usuario=$this->input->post('usuario',true);
+	 	$clave=$this->input->post('clave',true);
+	 	$where=array(
+	 		'usuario'=>$usuario,
+	 		'password'=>$clave
+	 	);
+	 	$query=$this->db->get_where('usuarios',$where);
+	 	if($query->num_rows()==1){
+	 		$query2=$this->db->get_where('vusuario_persona',$where);
+	 		$datos_persona=$query2->row();
+	 		$this->session->set_userdata($datos_persona);
+	 		// print_r($this->session->all_userdata());
+	 		$this->session->set_userdata('LOGUEADO', TRUE);
+	 		redirect('/empresas/abm');
+	 	}else{
+	 		redirect('welcome');
+	 	}
+	}
+	public function logout(){
+		$this->session->sess_destroy();
+		$this->loguin=FALSE;
+		redirect('welcome');
 	}
 }
 

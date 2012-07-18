@@ -77,7 +77,7 @@
 	</header> <!-- end of header bar -->
 		<section id="secondary_bar">
 		<div class="user">
-			<p>jujomago <!-- (<a href="#">3 Messages</a>) --></p>
+			<p><?=$this->session->userdata('nombres')?> <?=$this->session->userdata('paterno')?> <?=$this->session->userdata('materno')?>   <!-- (<a href="#">3 Messages</a>) --></p>
 			<!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
 		</div>
 		<!-- <div class="breadcrumbs_container">

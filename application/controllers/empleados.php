@@ -24,13 +24,15 @@
 			$this->template->view('fempleados',$data);
 		}
 		function guardar(){
+			if($this->session->userdata('LOGUEADO')==FALSE)
+			redirect('welcome');
 		//	print_r($_POST);
 		//	print_r($this->input->post('instituciones',true));
 
 			//1 insertar en prs_identificaciones
 				$data1=array(
 					'id_departamento'=>$this->input->post('extension'),
-					'ult_usuario'=>1,
+					'ult_usuario'=>$this->session->userdata('id_usuario'),
 					'ci'=>$this->input->post('ci')
 				);
 				$this->db->insert('prs_identificaciones',$data1);
@@ -62,7 +64,7 @@
 					'id_persona'=>$id_persona,
 					'nit'=>$this->input->post('nit'),
 					'pagina_web'=>$this->input->post('web'),
-					'ult_usuario'=>1
+					'ult_usuario'=>$this->session->userdata('id_usuario')
 
 				);
 				$this->db->insert('emp_empleados',$data3);
@@ -87,7 +89,7 @@
 					'id_establecimiento'=>$establecimientos[$i],
 					'titulo_obtenido'=>$titulos_obtenidos[$i],
 					'tiempo_estudio'=>$tiempos_estudio[$i],
-					'ult_usuario'=>1
+					'ult_usuario'=>$this->session->userdata('id_usuario')
 					);
 					$this->db->insert('emp_estudios_empleados',$data4);
 				}
@@ -103,7 +105,7 @@
 					'id_empresa'=>$sucursales[$i],
 					'id_cargo'=>$cargos[$i],
 					'tiempo_trabajo'=>$tiempos_trabajo[$i],
-					'ult_usuario'=>1
+					'ult_usuario'=>$this->session->userdata('id_usuario')
 					);
 					$this->db->insert('emp_experiencias_laborales',$data5);
 				}
@@ -122,7 +124,7 @@
 						'id_competencia'=>$competencias[$i],
 						'id_institucion'=>$instituciones[$i],
 						'fecha'=>$fechas_competencias[$i],
-						'ult_usuario'=>1
+						'ult_usuario'=>$this->session->userdata('id_usuario')
 						);
 						$this->db->insert('emp_detalles_competencias',$data6);
 					}
@@ -137,7 +139,7 @@
 					'gestion'=>date('Y'),
 					'observacion'=>$this->input->post('observacion'),
 					'serie'=>'FF-PE-02/'.date('Y'),
-					'ult_usuario'=>1
+					'ult_usuario'=>$this->session->userdata('id_usuario')
 					);
 					$this->db->insert('emp_formularios',$data7);
 
@@ -150,7 +152,7 @@
 						$data8=array(
 						'id_formulario'=>$id_formulario,
 						'id_cargo'=>$interes_cargos[$i],
-						'ult_usuario'=>1
+						'ult_usuario'=>$this->session->userdata('id_usuario')
 						);
 						$this->db->insert('emp_frm_cargos',$data8);
 					}				
@@ -161,7 +163,7 @@
 						$data9=array(
 						'id_formulario'=>$id_formulario,
 						'id_curso_capacitacion'=>$interes_cursos[$i],
-						'ult_usuario'=>1
+						'ult_usuario'=>$this->session->userdata('id_usuario')
 						);
 						$this->db->insert('emp_frm_cursos_capacitaciones',$data9);
 					}

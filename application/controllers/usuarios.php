@@ -73,7 +73,7 @@
 			$crud->set_relation('id_departamento','departamentos','departamento');
 			$crud->set_relation('id_provincia','provincias','provincia');
 			$crud->set_relation('id_localidad','localidades','localidad');
-			
+			//$crud->set_relation('id_departamento', 'departamentos','departamento');
 			
 	
 			$crud->callback_edit_field('estado',array($this,'editar_campo_estado'));

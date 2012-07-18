@@ -14,6 +14,9 @@
 			<li class="icn_edit_article"><a href="instituciones/abm">Instituciones</a></li>
 			<li class="icn_edit_article"><a href="paises/abm">Paises</a></li>
 			<li class="icn_edit_article"><a href="cursos_capacitaciones/abm">Cursos Capacitaciones</a></li>
+			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Usuarios</a></li>
+			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empadronadores</a></li>
+			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empleados</a></li>
 <!-- 			<li class="icn_new_article"><a href="#">New Article</a></li>
 			<li class="icn_categories"><a href="#">Categories</a></li>
 			<li class="icn_tags"><a href="#">Tags</a></li> -->
@@ -53,7 +56,7 @@
 		<ul class="toggle">
 			<li class="icn_settings"><a href="#">Opciones</a></li>
 			<li class="icn_security"><a href="#">Seguridad</a></li>
-			<li class="icn_jump_back"><a href="#">Salir</a></li>
+			<li class="icn_jump_back"><a href="welcome/logout">Salir</a></li>
 		</ul>
 		
 		<footer>
