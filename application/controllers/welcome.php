@@ -4,7 +4,7 @@
 
 class Welcome extends CI_Controller {
 
-	var loguin=FALSE;
+	var $loguin=FALSE;
 
 	function Welcome(){
 		parent::__construct();		
@@ -27,9 +27,13 @@ class Welcome extends CI_Controller {
 		$this->template->view('about',array('info_alert'=>'	Welcome to the free MediaLoot admin panel template, this could be an informative message.'));
 		
 	}
-	public function index()
+	public function index($msg="ok")
 	{
-		$this->load->view('login');		
+		if($msg=='error')
+			$data["mensaje"]="El usuario no existe";
+		else
+			$data=array();
+		$this->load->view('login',$data);		
 	}
 	public function is_loquegado(){
 		$this->loguin=$this->session->userdata('LOGUEADO');
@@ -46,19 +50,19 @@ class Welcome extends CI_Controller {
 	 		$query2=$this->db->get_where('vusuario_persona',$where);
 	 		$datos_persona=$query2->row();
 	 		$this->session->set_userdata($datos_persona);
-	 		// print_r($this->session->all_userdata());
+	 		// print_r($this->session->all_userdata());s
 	 		$this->session->set_userdata('LOGUEADO', TRUE);
 	 		redirect('/empresas/abm');
 	 	}else{
-	 		redirect('welcome');
+	 		redirect('welcome/index/error');
 	 	}
 	}
 	public function logout(){
 		$this->session->sess_destroy();
 		$this->loguin=FALSE;
-		redirect('welcome');
+		redirect('/welcome/index/ok');
 	}
 }
 
 /* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* Location: ./application/controllers/wselcome.php */

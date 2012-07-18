@@ -3,7 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Acceso al Sistema</title>
+	<base href="<?=base_url()?>"></base>
 	<style type="text/css">
+
 /*--------------------*/
 html{
 	height:100%;
@@ -31,7 +33,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', end
     background-image: -ms-linear-gradient(top, #fff, #eee);
     background-image: -o-linear-gradient(top, #fff, #eee);
     background-image: linear-gradient(top, #fff, #eee);  
-    height: 240px;
+    /*height: 240px;*/
     width: 400px;
     margin: -150px 0 0 -230px;
     padding: 30px;
@@ -255,11 +257,52 @@ fieldset
     color: #999;
 }
 
+
+h4.alert_error {
+display: block;
+/*width: 95%;*/
+margin: 20px 0 0 0;
+margin-top: 20px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background: #F3D9D9 url(images/icn_alert_error.png) no-repeat;
+background-position: 10px 10px;
+border: 1px solid #D20009;
+color: #7B040F;
+padding: 10px 0;
+text-indent: 40px;
+font-size: 14px;
+margin-bottom:6px;
+
+}
+
+h4.alert_success {
+display: block;
+width: 95%;
+margin: 20px 3% 0 3%;
+margin-top: 20px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background: #E2F6C5 url(images/icn_alert_success.png) no-repeat;
+background-position: 10px 10px;
+border: 1px solid #79C20D;
+color: #32510F;
+padding: 10px 0;
+text-indent: 40px;
+font-size: 14px;}
+
 </style>
 </head>
 
 <body>
 	<form id="login" method="post" action="welcome/login">
+	<?php if(isset($mensaje)):?>
+		<h4 class="alert_error" style="display:block"><?=$mensaje?></h4>
+	<?php else:?>
+		<h4 class="mensaje" style="display:none"></h4>
+	<?php endif;?>
     <h1>Acceso</h1>
     <fieldset id="inputs">
         <input id="username" name="usuario" type="text" placeholder="Usuario" autofocus required>   
