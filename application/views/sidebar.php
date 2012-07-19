@@ -7,12 +7,17 @@
 		<ul class="toggle">
 			
 			<li class="icn_edit_article"><a href="establecimientos/abm">Establecimientos</a></li>
+			<li class="icn_edit_article"><a href="tipo_establecimientos/abm">Tipo de Establecimientos</a></li>
 			<li class="icn_edit_article"><a href="niveles/abm">Niveles de formacion</a></li>
 			<li class="icn_edit_article"><a href="cargos/abm">Cargos</a></li>
 			<li class="icn_edit_article"><a href="competencias/abm">Competencias</a></li>
+			<li class="icn_edit_article"><a href="tipo_competencias/abm">Tipo de Competencias</a></li>
+			<li class="icn_edit_article"><a href="tipo_formularios/abm">Tipo de Formularios</a></li>
 			<li class="icn_edit_article"><a href="empresas/abm">Empresas</a></li>
 			<li class="icn_edit_article"><a href="instituciones/abm">Instituciones</a></li>
 			<li class="icn_edit_article"><a href="paises/abm">Paises</a></li>
+			<li class="icn_edit_article"><a href="roles/abm">Roles</a></li>
+			<li class="icn_edit_article"><a href="enlaces/abm">Enlaces</a></li>
 			<li class="icn_edit_article"><a href="cursos_capacitaciones/abm">Cursos Capacitaciones</a></li>
 			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Usuarios</a></li>
 			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empadronadores</a></li>

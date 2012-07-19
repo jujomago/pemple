@@ -15,21 +15,24 @@
 	<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.ui.datepicker-es.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/smoothness/jquery-ui-1.8.21.custom.css"/> 
-	<link rel="stylesheet" href="chosen/chosen.css" />
+
 	<script src="js/hideshow.js" type="text/javascript"></script>
-	<script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="js/jquery.equalHeight.js"></script>
+	<!--script src="js/jquery.tablesorter.min.js" type="text/javascript"></script-->
+	<!--script type="text/javascript" src="js/jquery.equalHeight.js"></script-->
 	
+	
+	<?php if (isset($css_extras)): ?> 
+		<?php foreach($css_extras as $file): ?>
+		    <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>"></script>
+		<?php endforeach; ?>
+	<?php endif;?>
+
 	<?php if(isset($js_extras)): ?>
 		<?php foreach($js_extras as $file): ?>
-	   		 <script src="<?php echo $file; ?>"></script>
+	   		 <script type="text/javascript" src="<?php echo $file; ?>"></script>
 		<?php endforeach; ?>
 	<?php endif;?>
-	<?php if (isset($css_extras)): ?>
-		<?php foreach($css_extras as $file): ?>
-		    <script src="<?php echo $file; ?>"></script>
-		<?php endforeach; ?>
-	<?php endif;?>
+
 
 	<script type="text/javascript">
 	$(document).ready(function() 
@@ -60,7 +63,7 @@
     </script>
     <script type="text/javascript">
     $(function(){
-        $('.column').equalHeight();
+        // $('.column').equalHeight();
     });
 </script>
 
