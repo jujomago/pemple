@@ -71,7 +71,7 @@
 
 				$id_empleado=$this->db->insert_id();
 
-			//4 insertar en usuarios (generar link, usuario y clave)
+			//4 insertar en usuarios (generar link, usuario y clave), asignar rol de empleados
 		
 
 
@@ -135,7 +135,7 @@
 					$data7=array(
 					'id_tipo'=>1, //1 igual a empleado, 2 empleador
 					'id_persona'=>$id_persona,
-					'id_empadronador'=>1, // yo me asigne como empradonador
+					//'id_empadronador'=>1, // yo me asigne como empradonador
 					'gestion'=>date('Y'),
 					'observacion'=>$this->input->post('observacion'),
 					'serie'=>'FF-PE-02/'.date('Y'),

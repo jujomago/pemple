@@ -46,12 +46,13 @@
 			'correo',
 			'fax',
 			'direccion',
+			'id_pais',
 			'id_departamento',
 			'id_provincia',
 			'id_localidad',
 			'ult_usuario',
-			'id_sexo',
-			'id_pais'
+			'id_sexo'
+			
 			
 			);
 
@@ -69,7 +70,8 @@
 			$crud->change_field_type('direccion', 'string');
 			$crud->change_field_type('fax', 'string');
 
-			$crud->change_field_type('id_pais', 'hidden', 1);
+			// $crud->change_field_type('id_pais', 'hidden', 1);
+			$crud->set_relation('id_pais','paises','pais');
 			$crud->set_relation('id_departamento','departamentos','departamento');
 			$crud->set_relation('id_provincia','provincias','provincia');
 			$crud->set_relation('id_localidad','localidades','localidad');
