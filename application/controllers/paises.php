@@ -6,10 +6,14 @@
 		
 		function __construct() {
 			parent::__construct();
-			
-			 $this->load->library('grocery_CRUD');
+			$this->is_logueado();
+			$this->load->library('grocery_CRUD');
 			
 			 
+		}
+		function pruebita(){
+			echo "lalala";
+			die();
 		}
 		function index(){
 			echo "this is just a test";
@@ -18,6 +22,15 @@
 				print_r($userper);
 			}
 		}
+
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
+
 		function abm(){
 			$crud=new grocery_CRUD();
 

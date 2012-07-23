@@ -20,8 +20,8 @@
 			<li class="icn_edit_article"><a href="enlaces/abm">Enlaces</a></li>
 			<li class="icn_edit_article"><a href="cursos_capacitaciones/abm">Cursos Capacitaciones</a></li>
 			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Usuarios</a></li>
-			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empadronadores</a></li>
-			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empleados</a></li>
+		<!-- 	<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empadronadores</a></li>
+			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empleados</a></li> -->
 <!-- 			<li class="icn_new_article"><a href="#">New Article</a></li>
 			<li class="icn_categories"><a href="#">Categories</a></li>
 			<li class="icn_tags"><a href="#">Tags</a></li> -->

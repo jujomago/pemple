@@ -4,7 +4,6 @@
 
 class Acceso extends CI_Controller {
 
-	var $loguin=FALSE;
 
 	function Acceso(){
 		parent::__construct();		
@@ -35,8 +34,12 @@ class Acceso extends CI_Controller {
 			$data=array();
 		$this->load->view('login',$data);		
 	}
-	public function is_loquegado(){
-		$this->loguin=$this->session->userdata('LOGUEADO');
+	public function is_logueado(){
+		$is_logueado=$this->session->userdata('LOGUEADO');
+		if(!isset($is_logueado) ||$is_logueado!=true){
+			echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+			die();
+		}	
 	}
 	public function login(){
 	 	$usuario=$this->input->post('usuario',true);
@@ -54,7 +57,8 @@ class Acceso extends CI_Controller {
 	 		$this->session->set_suserdata('LOGUEADO', TRUE);
 	 		redirect('/empresas/abm');
 	 	}else{
-	 		redirect('acceso/index/error');
+	 		// redirect('acceso/index/error');
+	 		$this->index('error');
 	 	}
 	}
 	public function logout(){
