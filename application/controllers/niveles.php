@@ -6,7 +6,7 @@
 		
 		function __construct() {
 			parent::__construct();
-			
+			$this->is_logueado();
 			 $this->load->library('grocery_CRUD');
 			
 			 
@@ -18,6 +18,15 @@
 				print_r($userper);
 			}
 		}
+
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
+		
 		function abm(){
 			$crud=new grocery_CRUD();
 			$crud->set_language('spanish');
@@ -37,7 +46,7 @@
 			$crud->add_fields('nivel_formacion','ult_usuario');
 			$crud->edit_fields('nivel_formacion','estado','ult_usuario','fec_modificacion');
 		
-			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
 			$crud->change_field_type('estado', 'true_false');			
 			$crud->change_field_type('fec_modificacion', 'datetime');
 			

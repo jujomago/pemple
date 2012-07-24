@@ -6,11 +6,19 @@
 		
 		function __construct() {
 			parent::__construct();
-			
-			 $this->load->library('grocery_CRUD');
-			
+			$this->is_logueado();
+			$this->load->library('grocery_CRUD');	
 			 
 		}
+
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
+
 		function index(){
 			if($this->session->userdata('LOGUEADO')==FALSE)
 			redirect('welcome');
@@ -21,13 +29,10 @@
 				print_r($userper);
 			}
 		}
+
 		/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
 		function agregar(){
-			if($this->session->userdata('LOGUEADO')==FALSE)
-			redirect('welcome');
-
 			$estab=$this->input->post('campo');
-		
 			$data=array(
 				'ult_usuario'=>1
 			);
@@ -44,16 +49,12 @@
 		}
 
 		function abm(){
-			if($this->session->userdata('LOGUEADO')==FALSE)
-			redirect('welcome');
-
-
 			$crud=new grocery_CRUD();
 			$crud->set_table('emp_sucursales');
 			
 			$crud->set_language('spanish');
 			$crud->set_subject('empresas');
-   $crud->set_theme('datatables');
+  			$crud->set_theme('datatables');
 		
 			$campos_agregar=array('sucursal',
 			'direccion',
@@ -87,9 +88,10 @@
 			'id_departamento',
 			'id_provincia',
 			'id_localidad',
-			'id_municipio'
+			'id_municipio',
+			'estado'
 			);
-			$crud->columns('id_sucursal','sucursal','direccion','celular','telefono','fax','email','tipo_sucursal','nro_empleados');
+			$crud->columns('id_sucursal','sucursal','direccion','celular','telefono','fax','email','tipo_sucursal','nro_empleados','estado');
 			$crud->display_as('id_sucursal',"ID");
 			$crud->display_as('nro_empleados',"# Empleados");
 			$crud->display_as('fec_registro',"Creado en");
@@ -105,9 +107,10 @@
 			
 			$crud->add_fields($campos_agregar);
 			$crud->edit_fields($campos_editar);
-			$crud->required_fields('sucursal','direccion','telefono','nro_empleados','fecha_inicio_empresa','id_departamento');
+			$crud->required_fields('sucursal','direccion','fecha_inicio_empresa','id_departamento');
 			
-	
+			$crud->set_rules('telefono','Telefono','numeric|required');
+   			$crud->set_rules('nro_empleados','# de Empleados','numeric|required');
 			
 			$crud->change_field_type('pagina_web', 'string');
 			$crud->change_field_type('sucursal', 'string');
@@ -144,9 +147,9 @@
 			$crud->callback_field('tipo_sucursal' ,array($this,'editar_campo_tipo_sucursal'));
 			
 			$crud->callback_delete(array($this,'desactivar_noborrar'));
-			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
+			// $crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			$crud->callback_insert(array($this,'my_insertar'));
-				$crud->callback_column('tipo_sucursal',array($this,'formatear_columna_tipo_sucursal'));
+			$crud->callback_column('tipo_sucursal',array($this,'formatear_columna_tipo_sucursal'));
 			
 			$output=$crud->render();
 			
@@ -164,14 +167,14 @@
 			return $this->db->insert('emp_sucursales',$post_array);
 		}
 	    
-		function formatear_columna_usuario($valor,$row)
-		{
-			$query=$this->db->get('vusuario_persona');
-			foreach ($query->result_array() as $userper) {
-			 		if($valor==$userper['id_usuario'])
-						return $userper['nombres']." ".$userper['paterno']." ".$userper['materno'];					
-					}
-		}
+		// function formatear_columna_usuario($valor,$row)
+		// {
+		// 	$query=$this->db->get('vusuario_persona');
+		// 	foreach ($query->result_array() as $userper) {
+		// 	 		if($valor==$userper['id_usuario'])
+		// 				return $userper['nombres']." ".$userper['paterno']." ".$userper['materno'];					
+		// 			}
+		// }
 		function formatear_columna_tipo_sucursal($valor,$row)
 		{
 			if($valor==1)
@@ -181,7 +184,7 @@
 		
 		function desactivar_noborrar($pk)
 		{
-			return $this->db->update('emp_niveles_formaciones',array('estado'=>'X'),array('id_nivel_formacion'=>$pk));
+			return $this->db->update('emp_sucursales',array('estado'=>'X'),array('id_sucursal'=>$pk));
 		}
 		
 		function editar_campo_estado($valor,$primary_key){

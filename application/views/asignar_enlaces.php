@@ -8,8 +8,6 @@
 							<label>Seleccione los modulos</label>
 							<select name="enlaces[]" id="enlaces" class="filtrable" multiple style="width:74%;height:auto;" >
 							<?php foreach ($enlaces->result() as $e): ?>
-								
-
 								<?php $sw=0;?>
 								<?php foreach ($enlaces_marcados->result() as $em): ?>
 									<?php if($e->id_enlace==$em->id_enlace) :?>
@@ -29,7 +27,7 @@
 			<footer>
 				<div class="submit_link">
 					<input type="submit" value="Guadar" class="alt_btn">
-					<input type="submit" value="Cancelar" />
+					<input type="reset" value="Cancelar" />
 				</div>
 			</footer>
 		<input type="hidden" name="id_rol" value="<?=$id_rol?>" />
@@ -37,4 +35,9 @@
 </article><!-- end of post new article -->
  <script type="text/javascript">
 	$(".filtrable").chosen({no_results_text: "No hay resultados"});
+	$("input[type=reset]").click(function(event){
+		history.back();
+		return null;
+
+	});
  </script>

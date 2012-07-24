@@ -5,7 +5,8 @@
 	class Personas extends CI_Controller {
 		
 		function __construct() {
-			parent::__construct();			
+			parent::__construct();
+			$this->is_logueado();			
 			$this->load->library('grocery_CRUD');			
 			 
 		}
@@ -16,6 +17,15 @@
 				print_r($userper);
 			}
 		}
+
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
+
 		function abm(){
 			$crud=new grocery_CRUD();
 			$crud->set_language('spanish');
@@ -23,7 +33,7 @@
 			$crud->set_theme('datatables');
 			$crud->set_subject('Personas');
 			
-			$crud->columns("id_persona","nombres","paterno","materno","telefono","celular","direccion","fec_modificacion");
+			$crud->columns("id_persona","U","nombres","paterno","materno","telefono","celular","direccion");
 			
 
 			$crud->display_as('id_persona',"ID");			
@@ -76,7 +86,7 @@
 			$crud->add_fields($campos_agregar);
 			$crud->edit_fields($campos_modificar);
 
-			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
 			$crud->change_field_type('estado', 'true_false');			
 			$crud->change_field_type('fec_modificacion', 'datetime');
 			$crud->change_field_type('nombres', 'string');
@@ -104,9 +114,11 @@
 			$crud->callback_insert(array($this,'guardar_personas'));
 			$crud->callback_delete(array($this,'desactivar_noborrar'));
 			// $crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
-			
-			$crud->add_action('Crear Usuario', '', 'usuarios/crear_usuario');
+			$crud->callback_column('U',array($this,'_callback_webpage_url'));
 
+		
+			$crud->add_action('Crear Usuario', '', 'usuarios/crear_usuario');
+		
 			$output=$crud->render();
 			
 	      	$this->_example_output($output);        
@@ -118,10 +130,23 @@
 			$estab=$this->input->post('campo');
 			$data=array(
 					"cargo"=>$estab,
-					"ult_usuario"=>1
+					"ult_usuario"=>$this->session->userdata('id_usuario')
 			);
 			$this->db->insert('emp_cargos',$data);
 			echo $this->db->insert_id();
+		}
+
+		public function _callback_webpage_url($value, $row)
+		{
+		 
+		  $where['id_estado']='A';
+		  $where['id_persona']=$row->id_persona;
+		  $query=$this->db->get_where('usuarios',$where);
+		  if($query->num_rows()==1){
+		  	return "<img src='/images/icn_security.png' /> ";
+		  }else{
+		  	return "X";
+		  }
 		}
 
 		function guardar_personas($post_array) {

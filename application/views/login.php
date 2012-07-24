@@ -297,7 +297,7 @@ font-size: 14px;}
 </head>
 
 <body>
-	<form id="login" method="post" action="welcome/login">
+	<form id="login" method="post" action="acceso/login">
 	<?php if(isset($mensaje)):?>
 		<h4 class="alert_error" style="display:block"><?=$mensaje?></h4>
 	<?php else:?>

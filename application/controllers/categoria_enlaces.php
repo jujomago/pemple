@@ -2,14 +2,17 @@
 	/**
 	 * 
 	 */
-	class Instituciones extends CI_Controller {
+	class Categoria_enlaces extends CI_Controller {
 		
 		function __construct() {
-			parent::__construct();
-				$this->is_logueado();	
-			 $this->load->library('grocery_CRUD');
+			parent::__construct();	
+			$this->is_logueado();			
+			$this->load->library('grocery_CRUD');
 			
 			 
+		}
+		function index(){
+		
 		}
 
 		public function is_logueado(){
@@ -20,57 +23,40 @@
 			}	
 		}
 
-		function index(){
-			echo "this is just a test";
-			$query=$this->db->get('vusuario_persona');
-		
-			foreach ($query->result() as $userper) {
-				print_r($userper);
-			}
-		}
-		/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
-		function agregar(){
-			$estab=$this->input->post('campo');
-			$data=array(
-					"institucion"=>$estab,
-					"ult_usuario"=>$this->session->userdata('id_usuario')
-			);
-			$this->db->insert('emp_instituciones',$data);
-			echo $this->db->insert_id();
-		}
 
 		function abm(){
-			
 			$crud=new grocery_CRUD();
-			$crud->set_table('emp_instituciones');
-			
 			$crud->set_language('spanish');
-			$crud->set_subject('institucion');
-   			$crud->set_theme('datatables');
-		
-		
-			$crud->add_fields('institucion','sigla','ult_usuario');
-			$crud->edit_fields('institucion','sigla','estado','ult_usuario','fec_modificacion');
-			$crud->display_as('id_institucion',"ID");
+			$crud->set_table('categorias_enlaces');
+			$crud->set_theme('datatables');
+			$crud->set_subject('Categorias Enlaces');
 
-			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
-			$crud->change_field_type('fec_modificacion', 'datetime');
+
+			$crud->display_as('id_categoria',"ID");
+			$crud->display_as('fec_registro',"Creado en");
+			$crud->display_as('fec_modificacion',"Modificado en");
+			$crud->display_as('ult_usuario',"Ultimo Usuario");
+
+			$crud->add_fields('categoria_enlace','orden','ult_usuario');
+			$crud->edit_fields('categoria_enlace','orden','ult_usuario','estado');
 		
-			
+			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
+			$crud->change_field_type('estado', 'true_false');			
+			$crud->change_field_type('fec_modificacion', 'datetime');		
+			$crud->change_field_type('orden', 'integer');
+		
 			$crud->callback_edit_field('estado',array($this,'editar_campo_estado'));
 			$crud->callback_delete(array($this,'desactivar_noborrar'));
 			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
-					
-			$crud->set_rules('institucion','Institucion','required');
-   			$crud->set_rules('sigla','Sigla','required');
 
+		
 
+		
 			$output=$crud->render();
 			
-	      	$this->_example_output($output);     
-			         
+	      	$this->_example_output($output);        
 	    }
-	
+	    
 		function formatear_columna_usuario($valor,$row)
 		{
 			$query=$this->db->get('vusuario_persona');
@@ -80,10 +66,9 @@
 					}
 		}
 		
-		
 		function desactivar_noborrar($pk)
 		{
-			return $this->db->update('emp_instituciones',array('estado'=>'X'),array('id_institucion'=>$pk));
+			return $this->db->update('categorias_enlaces',array('estado'=>'X'),array('id_categoria'=>$pk));
 		}
 		
 		function editar_campo_estado($valor,$primary_key){
@@ -96,11 +81,11 @@
 			return '<label><input id="estado_activo" type="radio" name="estado" value="A"  />Activo</label>
 					<label><input id="estado_inactivo" type="radio" name="estado" checked value="X" />Inactivo</label>';		
 		}
-		
-			 
-	 
+	
 	    function _example_output($output = null){
-	        $this->template->set('titulo',"Gestionar Instituciones");
+	       // $this->load->view('template_crud',$output);    
+	 	 	$this->template->set('titulo',"Gestionar Categorias Enlaces");
 			$this->template->view('template_crud',$output);
-	  }
+	   	 }
+
 	}

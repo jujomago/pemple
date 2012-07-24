@@ -5,7 +5,8 @@
 	class Enlaces extends CI_Controller {
 		
 		function __construct() {
-			parent::__construct();			
+			parent::__construct();	
+			$this->is_logueado();			
 			$this->load->library('grocery_CRUD');
 			
 			 
@@ -24,6 +25,14 @@
 		// 	$this->db->insert('emp_establecimientos',$data);
 		// 	echo $this->db->insert_id();
 		// }
+
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
 
 
 		function abm(){
@@ -48,7 +57,7 @@
 			$crud->add_fields('enlace','id_categoria','ult_usuario','orden','ruta_enlace','id_padre_enlace');
 			$crud->edit_fields('enlace','id_categoria','orden','ruta_enlace','id_padre_enlace','estado','ult_usuario','fec_modificacion');
 		
-			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
 			$crud->change_field_type('estado', 'true_false');			
 			$crud->change_field_type('fec_modificacion', 'datetime');		
 			$crud->change_field_type('ruta_enlace', 'string');
@@ -120,11 +129,13 @@
 	   	 	$enlaces=$this->input->post('enlaces');
 	   	 	$id_rol=$this->input->post('id_rol');
 
+	   	 	$this->db->delete('menus',array('id_rol'=>$id_rol));
+
 	   	 	foreach ($enlaces as $e) {
 	   	 		$data=array(
 	   	 			'id_rol'=>$id_rol,
 	   	 			'id_enlace'=>$e,
-	   	 			'ult_usuario'=>1
+	   	 			'ult_usuario'=> $this->session->userdata('id_usuario')
 	   	 		);
 	   	 		$this->db->insert('menus',$data);
 	   	 	}

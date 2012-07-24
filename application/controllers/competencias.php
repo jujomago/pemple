@@ -6,8 +6,8 @@
 		
 		function __construct() {
 			parent::__construct();
-			
-			 $this->load->library('grocery_CRUD');
+			$this->is_logueado();		
+			$this->load->library('grocery_CRUD');
 			
 			 
 		}
@@ -18,13 +18,20 @@
 				print_r($userper);
 			}
 		}
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
 
 			    	/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
 		function agregar(){
 			$estab=$this->input->post('campo');
 			$data=array(
 					"competencia"=>$estab,
-					"ult_usuario"=>1
+					"ult_usuario"=>$this->session->userdata('id_usuario')
 			);
 			$this->db->insert('emp_competencias',$data);
 			echo $this->db->insert_id();
@@ -44,7 +51,7 @@
 			
 			$crud->display_as('id_competencia',"ID");
 
-			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
 			$crud->change_field_type('fec_modificacion', 'datetime');
 			$crud->set_relation('id_tipo_competencia','emp_tipo_competencias','tipo_competencia');
 			

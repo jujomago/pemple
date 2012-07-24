@@ -51,7 +51,7 @@
 			$crud->add_fields('pais','nacionalidad','ult_usuario');
 			$crud->edit_fields('pais','nacionalidad','estado','ult_usuario','fec_modificacion');
 		
-			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
 			$crud->change_field_type('estado', 'true_false');
 			$crud->change_field_type('nacionalidad', 'string');
 			$crud->change_field_type('fec_modificacion', 'datetime');

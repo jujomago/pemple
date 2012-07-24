@@ -62,6 +62,16 @@ class Welcome extends CI_Controller {
 		$this->loguin=FALSE;
 		redirect('/welcome/index/ok');
 	}
+	function prueba_error(){
+		$datos=array(
+			'pais'=>'Holanda',
+			'nacionalidad'=>'Holandes',
+			'ult_usuario'=>1
+		);
+		$this->db->insert('paises',$datos);
+		echo $this->db->insert_id();
+
+	}
 }
 
 /* End of file welcome.php */

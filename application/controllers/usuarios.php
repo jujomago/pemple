@@ -6,6 +6,7 @@
 		
 		function __construct() {
 			parent::__construct();			
+			$this->is_logueado();		
 			$this->load->library('grocery_CRUD');			
 			 
 		}
@@ -17,6 +18,16 @@
 			// }
 			$this->abm();
 		}
+
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
+
+
 		function abm(){
 			$crud=new grocery_CRUD();
 			$crud->set_language('spanish');
@@ -45,7 +56,7 @@
 			$estab=$this->input->post('campo');
 			$data=array(
 					"cargo"=>$estab,
-					"ult_usuario"=>1
+					"ult_usuario"=>$this->session->userdata('id_usuario')
 			);
 			$this->db->insert('emp_cargos',$data);
 			echo $this->db->insert_id();
@@ -80,6 +91,13 @@
 				$data['id_usuario']=$id_usuario;
 				$data['css_extras']=array('chosen/chosen.css');
 	   	 		$data['js_extras']=array('chosen/chosen.jquery.js');
+	   	 	
+	   	 		$where=array(
+		   	 		'id_usuario'=>$id_usuario,
+		   	 		'estado'=>'A'
+	   	 		);
+	   	 		$data['roles_marcados']=$this->db->get_where('usr_roles',$where);
+
 	   	 		$data['titulo']="Asignar roles";
 				$this->template->view('asignar_roles',$data);
 		}
@@ -87,6 +105,9 @@
 		function guardar_roles_usuario(){
 				$id_usuario=$this->input->post('id_usuario');
 				$roles=$this->input->post('roles');
+
+				$this->db->delete('usr_roles',array('id_usuario'=>$id_usuario));
+
 				foreach ($roles as $rol) {
 					$data=array(
 						'id_rol'=>$rol,
@@ -111,10 +132,23 @@
 	   	 	// );
 	   	 	// $data['enlaces_marcados']=$this->db->get_where('menus',$where);
 
-	   	 	$data['persona']=$this->db->get_where('personas',array('id_persona'=>$id_persona))->row();
-	   	 	
-	   	 	$this->template->set('titulo',"Crear un Usuario para ".$data['persona']->nombres." ".$data['persona']->paterno);
-			$this->template->view('form_usuario',$data);	
+
+  		  $where['id_estado']='A';
+		  $where['id_persona']=$id_persona;
+		  $query=$this->db->get_where('usuarios',$where);
+		  if($query->num_rows()==0){
+		  		$data['persona']=$this->db->get_where('personas',array('id_persona'=>$id_persona))->row();
+	   	 	 	$this->template->set('titulo',"Crear un Usuario para ".$data['persona']->nombres." ".$data['persona']->paterno);
+				$this->template->view('form_usuario',$data);	
+		  }else{
+		  		redirect('personas/abm');
+		  }
+
+
+	   	 
+			
+
+
 		}
 		function guardar_usuario(){
 			$data['usuario']=$this->input->post('usuario');
@@ -180,7 +214,7 @@
 	
 	    function _example_output($output = null){
 	      //  $this->load->view('cargos',$output);    
-	    	$this->template->set('titulo',"Gestionar Personas");
+	    	$this->template->set('titulo',"Gestionar Usuarios");
 			$this->template->view('template_crud',$output);
 	    }
 	}

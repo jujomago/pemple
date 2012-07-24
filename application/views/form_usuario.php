@@ -25,5 +25,8 @@
 		</form>
 		</article><!-- end of post new article -->
  <script type="text/javascript">
-	$(".filtrable").chosen({no_results_text: "No hay resultados"});
+	$("input[type=reset]").click(function(event){
+		history.back();
+		return null;
+	});
  </script>

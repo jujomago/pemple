@@ -1,58 +1,54 @@
-	<aside id="sidebar" class="column">
-		<form class="quick_search">
+<aside id="sidebar" class="column">
+		<!-- <form class="quick_search">
 			<input type="text" value="Busqueda Rapida" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
 		</form>
-		<hr/>
-		<h3>Gestión</h3>
-		<ul class="toggle">
-			<?php
+		<hr/> -->
+		<?php
+
+
+			$id_usuario_log=$this->session->userdata('id_usuario');
+			$whereu['estado']="A";
+			$whereu['id_usuario']=$id_usuario_log;
+			$roles_usuario=$this->db->get_where('usr_roles',$whereu); //supondre que el usuario solo puede tener un rol
+			// print_r($roles_usuario->result());
+
+			$rol_unico=$roles_usuario->row();
+			$wherem['estado']='A';
+			$wherem['id_rol']=$rol_unico->id_rol;
+
+			$enlaces_rol=$this->db->get_where('menus',$wherem);
+
+
+
+			$where['estado']='A';
+			$this->db->from('categorias_enlaces');
+			$this->db->where($where);
+			$this->db->order_by("orden", "asc");
+			$categorias=$this->db->get();
+
+		 ?>
+ 		<?php foreach ($categorias->result() as $cat) : ?>				
+			<h3><?=$cat->categoria_enlace?></h3>
+			<ul class="toggle">
+				<?php
 				$where['estado']='A';
-				$where['id_categoria']=1; //la categoria de administración
-				$query=$this->db->get_where('enlaces',$where);
-
-			?>
-			<?php foreach ($query->result() as $e) : ?>
-				<li class="icn_edit_article"><a href="<?=$e->ruta_enlace?>"><?=$e->enlace?></a></li>
-			<?php endforeach;?>
-
-		<!-- 	<li class="icn_edit_article"></li>Establecimientos</a></li>
-			<li class="icn_edit_article"><a href="tipo_establecimientos/abm">Tipo de Establecimientos</a></li>
-			<li class="icn_edit_article"><a href="niveles/abm">Niveles de formacion</a></li>
-			<li class="icn_edit_article"><a href="cargos/abm">Cargos</a></li>
-			<li class="icn_edit_article"><a href="competencias/abm">Competencias</a></li>
-			<li class="icn_edit_article"><a href="tipo_competencias/abm">Tipo de Competencias</a></li>
-			<li class="icn_edit_article"><a href="tipo_formularios/abm">Tipo de Formularios</a></li>
-			<li class="icn_edit_article"><a href="empresas/abm">Empresas</a></li>
-			<li class="icn_edit_article"><a href="instituciones/abm">Instituciones</a></li>
-			<li class="icn_edit_article"><a href="paises/abm">Paises</a></li>
-			<li class="icn_edit_article"><a href="roles/abm">Roles</a></li>
-			<li class="icn_edit_article"><a href="enlaces/abm">Enlaces</a></li>
-			<li class="icn_edit_article"><a href="cursos_capacitaciones/abm">Cursos Capacitaciones</a></li>
-			<li class="icn_edit_article"><a href="personas/abm">Administrar Personas</a></li>
-			<li class="icn_edit_article"><a href="usuarios">Listar Usuarios</a></li> -->
-		<!-- 	<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empadronadores</a></li>
-			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empleados</a></li> -->
-<!-- 			<li class="icn_new_article"><a href="#">New Article</a></li>
-			<li class="icn_categories"><a href="#">Categories</a></li>
-			<li class="icn_tags"><a href="#">Tags</a></li> -->
-		</ul>
-
-
-		<h3>Formularios</h3>
-		<ul class="toggle">
-			
-			<li class="icn_categories"><a href="empleados/registro">Empleados</a></li>
-			<li class="icn_tags"><a href="empleadores/registro">Empleadores</a></li>
-<!-- 			<li class="icn_new_article"><a href="#">New Article</a></li>
-			<li class="icn_categories"><a href="#">Categories</a></li>
-			<li class="icn_tags"><a href="#">Tags</a></li> -->
-		</ul>
-		<h3>Reportes</h3>
-		<ul class="toggle">
-			<li class="icn_new_article"><a href="empleados/registro">Reporte 1</a></li>
-			<li class="icn_new_article"><a href="empleadores/registro">Reporte 2</a></li>
-			<li class="icn_new_article"><a href="empleadores/registro">Reporte N</a></li>
-		</ul>
+				$where['id_categoria']=$cat->id_categoria;
+				$enlaces=$this->db->get_where('enlaces',$where);
+				?>
+				<?php foreach ($enlaces->result() as $e) : ?>
+					
+					<?php foreach ($enlaces_rol->result() as $er) : ?>
+						<?php if($e->id_enlace==$er->id_enlace) :?>
+							<li class="icn_edit_article">
+								<a href="<?=$e->ruta_enlace?>"><?=$e->enlace?></a>
+							</li>
+							<?php break;?>
+						<?php endif ?>
+					<?php endforeach;?>
+					
+				<?php endforeach;?>
+			</ul>
+		<?php endforeach;?>
 
 		<h3>Usuarios</h3>
 		<ul class="toggle">
@@ -60,18 +56,11 @@
 			<li class="icn_view_users"><a href="#">Ver usuarios</a></li>
 			<li class="icn_profile"><a href="#">Tu perfil</a></li>
 		</ul>
-		<!-- <h3>Media</h3>
-		<ul class="toggle">
-			<li class="icn_folder"><a href="#">File Manager</a></li>
-			<li class="icn_photo"><a href="#">Gallery</a></li>
-			<li class="icn_audio"><a href="#">Audio</a></li>
-			<li class="icn_video"><a href="#">Video</a></li>
-		</ul> -->
 		<h3>Administracion</h3>
 		<ul class="toggle">
 			<li class="icn_settings"><a href="#">Opciones</a></li>
 			<li class="icn_security"><a href="#">Seguridad</a></li>
-			<li class="icn_jump_back"><a href="welcome/logout">Salir</a></li>
+			<li class="icn_jump_back"><a href="acceso/logout">Salir</a></li>
 		</ul>
 		
 		<footer>

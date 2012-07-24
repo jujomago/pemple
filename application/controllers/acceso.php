@@ -28,11 +28,16 @@ class Acceso extends CI_Controller {
 	}
 	public function index($msg="ok")
 	{
-		if($msg=='error')
-			$data["mensaje"]="El usuario no existe";
-		else
-			$data=array();
-		$this->load->view('login',$data);		
+		$is_logueado=$this->session->userdata('LOGUEADO');
+		if(!isset($is_logueado) || $is_logueado!=true){
+					if($msg=='error')
+						$data["mensaje"]="El usuario no existe";
+					else
+						$data=array();
+					$this->load->view('login',$data);	
+		}else if(isset($is_logueado) && $is_logueado==true){
+			redirect('/empleados/registro');
+		}	
 	}
 	public function is_logueado(){
 		$is_logueado=$this->session->userdata('LOGUEADO');
@@ -54,8 +59,8 @@ class Acceso extends CI_Controller {
 	 		$datos_persona=$query2->row();
 	 		$this->session->set_userdata($datos_persona);
 	 		// print_r($this->session->all_userdata());s
-	 		$this->session->set_suserdata('LOGUEADO', TRUE);
-	 		redirect('/empresas/abm');
+	 		$this->session->set_userdata('LOGUEADO', TRUE);
+	 		redirect('/empleados/registro');
 	 	}else{
 	 		// redirect('acceso/index/error');
 	 		$this->index('error');

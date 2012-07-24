@@ -6,6 +6,7 @@
 		
 		function __construct() {
 			parent::__construct();			
+			$this->is_logueado();		
 			$this->load->library('grocery_CRUD');
 			
 			 
@@ -25,6 +26,13 @@
 		// 	echo $this->db->insert_id();
 		// }
 
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
 
 		function abm(){
 			$crud=new grocery_CRUD();
@@ -43,7 +51,7 @@
 			$crud->add_fields('rol','ult_usuario');
 			$crud->edit_fields('rol','estado','ult_usuario','fec_modificacion');
 		
-			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
 			$crud->change_field_type('estado', 'true_false');			
 			$crud->change_field_type('fec_modificacion', 'datetime');	
 			
