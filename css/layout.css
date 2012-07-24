@@ -198,6 +198,9 @@ background: #E0E0E3 url(../images/sidebar.png) repeat;
 float: left;
 min-height: 500px;
 margin-top: -4px;
+-webkit-box-shadow:2px 1px 4px #666;
+-moz-box-shadow:2px 1px 4px #666;
+box-shadow:2px 1px 4px #666;
 }
 
 #sidebar hr {
@@ -364,7 +367,7 @@ margin-top: 20%;
 section#main {
 width: 74%;
 min-height: 500px;
-background: url(../images/sidebar_shadow.png) repeat-y left top;
+/*background: url(../images/sidebar_shadow.png) repeat-y left top;*/
 float: left;
 margin-top: -2px;
 padding:10px 20px 0px;
@@ -888,4 +891,8 @@ font-size: 14px;}
 
 #main h3.form-title{
 	margin:0;
+}
+
+footer hr{
+	float:left;
 }
