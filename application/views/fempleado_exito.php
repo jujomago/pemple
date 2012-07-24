@@ -1,0 +1,1 @@
+<h4 class="alert_success">Se registro correctamente el formulario puede volver a registrar <a href="empleados/registro">uno nuevo</a></h4>

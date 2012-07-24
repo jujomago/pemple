@@ -2,6 +2,41 @@
 
 	class Empleados extends CI_Controller {
 
+
+		function __construct() {
+			parent::__construct();
+			$this->is_logueado();
+		}
+
+
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if( !isset($is_logueado) || $is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
+
+		function prueba_paises(){
+
+			$this->db->trans_start();
+				$data=array(
+					'pais'=>'LOlito',
+					'nacionalidad'=>'de losos',
+					'ult_usuario'=>1
+				);
+				$this->db->insert('paises',$data);
+
+			$this->db->trans_complete();
+
+				if ($this->db->trans_status() === FALSE)
+				{
+				    // generate an error... or use the log_message() function to log your error
+				    echo $this->db->trans_status();
+				} 
+
+		}
+
 		function registro(){
 			//$data['paises']=$this->db->get('paises')->re
 			$this->load->model('Paises');
@@ -23,11 +58,16 @@
 			$this->template->set('titulo',"Formulario Empleados");
 			$this->template->view('fempleados',$data);
 		}
+		
+
+
 		function guardar(){
-			if($this->session->userdata('LOGUEADO')==FALSE)
-			redirect('welcome');
+		
 		//	print_r($_POST);
 		//	print_r($this->input->post('instituciones',true));
+
+			//INICIAMOS LA TRANSACCION
+			$this->db->trans_start();
 
 			//1 insertar en prs_identificaciones
 				$data1=array(
@@ -72,8 +112,38 @@
 				$id_empleado=$this->db->insert_id();
 
 			//4 insertar en usuarios (generar link, usuario y clave), asignar rol de empleados
-		
+				$this->load->helper('string');
+				$this->load->library('email');
 
+
+				$rusuario=random_string('alnum', 5);
+				$rpassword=random_string('alnum', 8);
+				$datau=array(
+					'id_persona'=>$id_persona,
+					'usuario'=>$rusuario,
+					'password'=>$rpassword
+				);
+
+				$this->db->insert('usuarios',$datau);
+
+				$id_usuario=$this->db->insert_id();
+
+
+
+				$this->email->from('jujomago@gmail.com', 'Jujomago');
+				$this->email->to($this->input->post('email'));
+				$this->email->subject('Suscripción al Sistema de Empleabilidad de la Fautapo');
+				$this->email->message('Estimado:'.$this->input->post('nombres')."\r\n"." Le escribimos para comunicarle que acaba ser inscribir su nombre al Sistema de empleabilidade la la Fundación Fautapo. \r\n Sus credenciales para acceder al sistema son las siguientes:\r\n Usuario: ".$rusuario."\r\nPassword: ".$rpassword."\r\n Por ningun motivo muestre su clave a cualquier persona, estas credenciasles pueden ser cambiadas una vez que ingrese al sistema. \r\n http://emple.local");
+
+				$this->email->send();
+
+			//4.1 asignar el rol de empleados
+				$datar=array(
+					'id_usuario'=>$id_usuario,
+					'id_rol'=>3, //EL ROL 3 ES DEL EMPLEADO ASI QUE ESTE NUNCA CAMBIA
+					'ult_usuario'=>$this->session->userdata('id_usuario')
+				);
+				$this->db->insert('usr_roles',$datar);
 
 			//5 insertar en emp_estudios_empleados
 				
@@ -167,6 +237,18 @@
 						);
 						$this->db->insert('emp_frm_cursos_capacitaciones',$data9);
 					}
+
+			//FINALIZAMOS LA TRANSACCION
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === TRUE)
+			{	
+				 $data['titulo']='Se registro correctamente el formulario';
+				 $this->template->view('fempleado_exito',$data);
+			}else{
+				echo "Ocurrio un error al guardar los datos";
+				die();
+			}
 
 		}
 	}

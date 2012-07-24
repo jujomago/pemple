@@ -585,7 +585,7 @@ float: left;
 border-bottom: 1px dotted #cccccc;
 }
 
-input[type=submit] {
+input[type=submit] , input[type=reset]{
 background: #D0D1D4 url(../images/btn_submit.png) repeat-x;
 border: 1px solid #A8A9A8;
 -webkit-box-shadow: 0 1px 0 #fff;
@@ -707,7 +707,7 @@ margin: -5px 0 5px 0;
 text-transform: uppercase;
 }
 
-fieldset input[type=text] {
+fieldset input[type=text],fieldset input[type=password] {
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;

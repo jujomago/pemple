@@ -2,7 +2,7 @@
 	/**
 	 * 
 	 */
-	class Usuarios extends CI_Controller {
+	class Personas extends CI_Controller {
 		
 		function __construct() {
 			parent::__construct();			
@@ -10,29 +10,102 @@
 			 
 		}
 		function index(){
-			// echo "this is just a test";
-			// $query=$this->db->get('vusuario_persona');
-			// foreach ($query->result() as $userper) {
-			// 	print_r($userper);
-			// }
-			$this->abm();
+			echo "this is just a test";
+			$query=$this->db->get('vusuario_persona');
+			foreach ($query->result() as $userper) {
+				print_r($userper);
+			}
 		}
 		function abm(){
 			$crud=new grocery_CRUD();
 			$crud->set_language('spanish');
-			$crud->set_table('usuarios');
+			$crud->set_table('personas');
 			$crud->set_theme('datatables');
-			$crud->set_subject('Usuarios');
+			$crud->set_subject('Personas');
 			
-			 $crud->columns("id_usuario","id_persona","usuario","password","id_estado");
+			$crud->columns("id_persona","nombres","paterno","materno","telefono","celular","direccion","fec_modificacion");
 			
 
-			$crud->display_as('id_persona',"Persona");	
-			$crud->unset_operations();
+			$crud->display_as('id_persona',"ID");			
+			$crud->display_as('fec_modificacion',"Modificado en");
+			$crud->display_as('paterno',"Ap. Paterno");
+			$crud->display_as('materno',"Ap. Materno");
 
-			$crud->callback_column('id_persona',array($this,'formatear_columna_usuario'));
+			$crud->display_as('id_departamento','Departamento');
+			$crud->display_as('id_provincia','Provincia');
+			$crud->display_as('id_localidad','Localidad');
+			$crud->display_as('id_pais','Pais');
+			$crud->display_as('id_sexo','Genero');
+			$crud->display_as('fec_nacimiento','Fecha de nacimiento');
+
+			$campos_agregar=array('nombres',
+			'paterno',
+			'materno',
+			'ci',
+			'fec_nacimiento',
+			'telefono',
+			'celular',
+			'correo',
+			'fax',
+			'direccion',
+			'id_pais',
+			'id_departamento',
+			'id_provincia',
+			'id_localidad',
+			'ult_usuario',
+			'id_sexo',
+			'id_identificacion'		
+			);
+			$campos_modificar=array('nombres',
+			'paterno',
+			'materno',			
+			'fec_nacimiento',
+			'telefono',
+			'celular',
+			'correo',
+			'fax',
+			'direccion',
+			'id_pais',
+			'id_departamento',
+			'id_provincia',
+			'id_localidad',
+			'ult_usuario',
+			'id_sexo'		
+			);
+
+			$crud->add_fields($campos_agregar);
+			$crud->edit_fields($campos_modificar);
+
+			$crud->change_field_type('ult_usuario', 'hidden', 1);
+			$crud->change_field_type('estado', 'true_false');			
+			$crud->change_field_type('fec_modificacion', 'datetime');
+			$crud->change_field_type('nombres', 'string');
+			$crud->change_field_type('paterno', 'string');
+			$crud->change_field_type('materno', 'string');
+			$crud->change_field_type('telefono', 'string');
+			$crud->change_field_type('celular', 'string');
+			$crud->change_field_type('correo', 'string');
+			$crud->change_field_type('direccion', 'string');
+			$crud->change_field_type('fax', 'string');
+			$crud->change_field_type('clave', 'password');
+
+
+			$crud->change_field_type('id_identificacion', 'hidden', 0);
+			$crud->set_relation('id_pais','paises','pais');
+			$crud->set_relation('id_departamento','departamentos','departamento');
+			$crud->set_relation('id_provincia','provincias','provincia');
+			$crud->set_relation('id_localidad','localidades','localidad');
+
 			
-			$crud->add_action('Asignar roles', '', 'usuarios/asignar_roles');
+			
+			$crud->callback_edit_field('estado',array($this,'editar_campo_estado'));
+			$crud->callback_field('id_sexo',array($this,'editar_campo_sexo'));
+			$crud->callback_field('ci',array($this,'editar_campo_ci'));
+			$crud->callback_insert(array($this,'guardar_personas'));
+			$crud->callback_delete(array($this,'desactivar_noborrar'));
+			// $crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
+			
+			$crud->add_action('Crear Usuario', '', 'usuarios/crear_usuario');
 
 			$output=$crud->render();
 			
@@ -74,31 +147,6 @@
 				die();
 			}
 		}
-		function asignar_roles($id_usuario){
-
-				$data['roles']=$this->db->get_where('roles',array('estado'=>'A'));
-				$data['id_usuario']=$id_usuario;
-				$data['css_extras']=array('chosen/chosen.css');
-	   	 		$data['js_extras']=array('chosen/chosen.jquery.js');
-	   	 		$data['titulo']="Asignar roles";
-				$this->template->view('asignar_roles',$data);
-		}
-
-		function guardar_roles_usuario(){
-				$id_usuario=$this->input->post('id_usuario');
-				$roles=$this->input->post('roles');
-				foreach ($roles as $rol) {
-					$data=array(
-						'id_rol'=>$rol,
-						'id_usuario'=>$id_usuario,
-						'ult_usuario'=>$this->session->userdata('id_usuario')
-					);
-					$this->db->insert('usr_roles',$data);
-				}
-				redirect('/usuarios');
-		}
-
-
 
 		function crear_usuario($id_persona){
 			
@@ -127,15 +175,21 @@
 		//	die();
 		//	if($this->db->affected_rows()==1){
 			
+				// $data['roles']=$this->db->get_where('roles',array('estado'=>'A'));
+				// $data['id_usuario']=$id_usuario;
+				// $data['css_extras']=array('chosen/chosen.css');
+	   // 	 		$data['js_extras']=array('chosen/chosen.jquery.js');
+
+				// $this->template->view('asignar_roles',$data);
 		//	}
 			$this->abm();
 		}
 	    
 		function formatear_columna_usuario($valor,$row)
 		{
-			$query=$this->db->get('personas');
+			$query=$this->db->get('vusuario_persona');
 			foreach ($query->result_array() as $userper) {
-			 		if($valor==$userper['id_persona'])
+			 		if($valor==$userper['id_usuario'])
 						return $userper['nombres']." ".$userper['paterno']." ".$userper['materno'];					
 					}
 		}

@@ -3,10 +3,19 @@
 			<input type="text" value="Busqueda Rapida" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
 		</form>
 		<hr/>
-		<h3>Gestion</h3>
+		<h3>Gestión</h3>
 		<ul class="toggle">
-			
-			<li class="icn_edit_article"><a href="establecimientos/abm">Establecimientos</a></li>
+			<?php
+				$where['estado']='A';
+				$where['id_categoria']=1; //la categoria de administración
+				$query=$this->db->get_where('enlaces',$where);
+
+			?>
+			<?php foreach ($query->result() as $e) : ?>
+				<li class="icn_edit_article"><a href="<?=$e->ruta_enlace?>"><?=$e->enlace?></a></li>
+			<?php endforeach;?>
+
+		<!-- 	<li class="icn_edit_article"></li>Establecimientos</a></li>
 			<li class="icn_edit_article"><a href="tipo_establecimientos/abm">Tipo de Establecimientos</a></li>
 			<li class="icn_edit_article"><a href="niveles/abm">Niveles de formacion</a></li>
 			<li class="icn_edit_article"><a href="cargos/abm">Cargos</a></li>
@@ -19,7 +28,8 @@
 			<li class="icn_edit_article"><a href="roles/abm">Roles</a></li>
 			<li class="icn_edit_article"><a href="enlaces/abm">Enlaces</a></li>
 			<li class="icn_edit_article"><a href="cursos_capacitaciones/abm">Cursos Capacitaciones</a></li>
-			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Usuarios</a></li>
+			<li class="icn_edit_article"><a href="personas/abm">Administrar Personas</a></li>
+			<li class="icn_edit_article"><a href="usuarios">Listar Usuarios</a></li> -->
 		<!-- 	<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empadronadores</a></li>
 			<li class="icn_edit_article"><a href="usuarios/abm">Administrar Empleados</a></li> -->
 <!-- 			<li class="icn_new_article"><a href="#">New Article</a></li>

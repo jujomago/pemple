@@ -42,7 +42,9 @@
 			$crud->display_as('ruta_enlace',"Ruta del enlace");
 			$crud->display_as('id_padre_enlace',"Padre");
 
-			
+			$crud->columns('id_enlace','enlace','ruta_enlace','estado','ult_usuario','orden','id_categoria','id_padre_enlace');
+
+
 			$crud->add_fields('enlace','id_categoria','ult_usuario','orden','ruta_enlace','id_padre_enlace');
 			$crud->edit_fields('enlace','id_categoria','orden','ruta_enlace','id_padre_enlace','estado','ult_usuario','fec_modificacion');
 		
