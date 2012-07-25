@@ -35,8 +35,8 @@
 			$crud->set_theme('datatables');
 			$crud->set_subject('Usuarios');
 			
-			 $crud->columns("id_usuario","id_persona","usuario","password","id_estado");
-			
+			 $crud->columns("id_usuario","roles","id_persona","usuario","password","id_estado");
+			$crud->callback_column('roles',array($this,'_formatear_columna_rol'));
 
 			$crud->display_as('id_persona',"Persona");	
 			$crud->unset_operations();
@@ -50,8 +50,16 @@
 	      	$this->_example_output($output);        
 	    }
 
+	    function _formatear_columna_rol($value, $row){
+	      $where['estado']='A';
+		  $where['id_usuario']=$row->id_usuario;
+		  $query=$this->db->get_where('usr_roles',$where);
+		  if($query->num_rows()>0)
+			  return $query->num_rows()." rol(es)";
+	      return "X";
+	    }
 
-	    	/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
+	    /*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
 		function agregar(){
 			$estab=$this->input->post('campo');
 			$data=array(

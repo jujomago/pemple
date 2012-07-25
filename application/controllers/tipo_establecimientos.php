@@ -15,25 +15,13 @@
 		
 		}
 
-		/*Funcion que se llama a traves de ajax y retorna el nuevo ide del establecimiento*/
-		// function agregar(){
-		// 	$estab=$this->input->post('campo');
-		// 	$data=array(
-		// 			"establecimiento"=>$estab,
-		// 			"ult_usuario"=>1
-		// 	);
-		// 	$this->db->insert('emp_establecimientos',$data);
-		// 	echo $this->db->insert_id();
-		// }
-
-
-	public function is_logueado(){
-		$is_logueado=$this->session->userdata('LOGUEADO');
-		if(!isset($is_logueado) ||$is_logueado!=true){
-			echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
-			die();
-		}	
-	}
+		public function is_logueado(){
+			$is_logueado=$this->session->userdata('LOGUEADO');
+			if(!isset($is_logueado) ||$is_logueado!=true){
+				echo "No tienes permiso para acceder a esta pagina. <a href='../acceso'>Acceso</a>";
+				die();
+			}	
+		}
 
 		function abm(){
 			$crud=new grocery_CRUD();
@@ -63,7 +51,10 @@
 			$crud->callback_delete(array($this,'desactivar_noborrar'));
 			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			
-		
+			
+			$crud->set_rules('tipo_establecimiento','Tipo de Establecimiento','required');
+    		
+
 			$output=$crud->render();
 			
 	      	$this->_example_output($output);        

@@ -33,7 +33,7 @@
 			$crud->set_theme('datatables');
 			$crud->set_subject('Personas');
 			
-			$crud->columns("id_persona","U","nombres","paterno","materno","telefono","celular","direccion");
+			$crud->columns("id_persona","U","nombres","paterno","materno","telefono","celular","direccion","estado");
 			
 
 			$crud->display_as('id_persona',"ID");			
@@ -64,7 +64,8 @@
 			'id_localidad',
 			'ult_usuario',
 			'id_sexo',
-			'id_identificacion'		
+			'id_identificacion'
+
 			);
 			$campos_modificar=array('nombres',
 			'paterno',
@@ -80,7 +81,8 @@
 			'id_provincia',
 			'id_localidad',
 			'ult_usuario',
-			'id_sexo'		
+			'id_sexo',			
+			'estado'		
 			);
 
 			$crud->add_fields($campos_agregar);
@@ -118,8 +120,19 @@
 
 		
 			$crud->add_action('Crear Usuario', '', 'usuarios/crear_usuario');
-		
+
+			$crud->set_rules('nombres','Nombres','required');
+			$crud->set_rules('paterno','Ap. Paterno','required');
+			$crud->set_rules('ci','Ci','required|numeric|exact_length[7]');
+			$crud->set_rules('fec_nacimiento','Fecha de Nacimiento','required');
+			$crud->set_rules('direccion','Dirección','required');
+			$crud->set_rules('telefono','Telefono','required');
+			$crud->set_rules('id_pais','Pais','required');
+			$crud->set_rules('id_departamento','Departamento','required');
+
 			$output=$crud->render();
+			// print_r($output);
+			// die
 			
 	      	$this->_example_output($output);        
 	    }
@@ -221,7 +234,7 @@
 		
 		function desactivar_noborrar($pk)
 		{
-			return $this->db->update('emp_cargos',array('estado'=>'X'),array('id_cargo'=>$pk));
+			return $this->db->update('personas',array('estado'=>'X'),array('id_persona'=>$pk));
 		}
 		
 		function editar_campo_estado($valor,$primary_key){

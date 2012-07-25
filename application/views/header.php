@@ -33,6 +33,20 @@
 	<?php endif;?>
 
 
+<!-- INICIO LIBRERIAS DE GROCERY CRUD -->
+<?php if(isset($js_files)): ?>
+	<?php foreach($js_files as $file): ?>
+	    <script src="<?php echo $file; ?>"></script>
+	<?php endforeach; ?>
+<?php endif;?>
+
+<?php if(isset($css_files)): ?>
+	<?php foreach($css_files as $file): ?>
+	    <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
+	<?php endforeach; ?>
+<?php endif;?>
+<!-- FIN LIBRERIAS DE GROCERY CRUD -->
+
 	<script type="text/javascript">
     	$(function(){
 

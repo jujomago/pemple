@@ -64,6 +64,7 @@
 			$crud->set_rules('institucion','Institucion','required');
    			$crud->set_rules('sigla','Sigla','required');
 
+   			
 
 			$output=$crud->render();
 			

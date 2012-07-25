@@ -62,7 +62,9 @@
 			$crud->callback_delete(array($this,'desactivar_noborrar'));
 			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			
-			
+			$crud->set_rules('pais','Pais','required');
+			$crud->set_rules('nacionalidad','Nacionalidad','required');
+
 			$output=$crud->render();
 			
 	      	$this->_example_output($output);        

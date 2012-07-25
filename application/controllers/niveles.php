@@ -56,6 +56,7 @@
 			$crud->callback_delete(array($this,'desactivar_noborrar'));
 			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			
+			$crud->set_rules('nivel_formacion','Nivel de Formacion','required');
 			
 			$output=$crud->render();
 			

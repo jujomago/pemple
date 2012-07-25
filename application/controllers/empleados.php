@@ -186,7 +186,7 @@
 				$instituciones=$this->input->post('instituciones');
 				$fechas_competencias=$this->input->post('fechas_competencias');
 
-				echo var_dump($instituciones);
+		//		echo var_dump($instituciones);
 				if(count($competencias)>0){
 					for ($i=0; $i < count($competencias); $i++) { 
 						$data6=array(

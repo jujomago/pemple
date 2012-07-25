@@ -2655,7 +2655,7 @@ class grocery_CRUD extends grocery_CRUD_States
 	protected $unset_add			= false;
 	protected $unset_edit			= false;
 	protected $unset_delete			= false;
-	protected $unset_jquery			= false;
+	protected $unset_jquery			= TRUE; //CAMBIADO PARA QUE NO CARGUE DE NUEVO JQUERY
 	protected $unset_list			= false;
 	protected $unset_back_to_list	= false;
 	protected $unset_columns		= null;

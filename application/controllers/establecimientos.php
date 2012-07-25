@@ -67,6 +67,10 @@
 			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 			
 		
+			$crud->set_rules('establecimiento','Establecimiento','required');
+			$crud->set_rules('sigla','Sigla','required');
+			$crud->set_rules('id_tipo_est','Tipo de Establecimiento','required');
+
 			$output=$crud->render();
 			
 	      	$this->_example_output($output);        

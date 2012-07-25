@@ -50,6 +50,7 @@
 			$crud->edit_fields('competencia','id_tipo_competencia','estado','ult_usuario','fec_modificacion');
 			
 			$crud->display_as('id_competencia',"ID");
+			$crud->display_as('id_tipo_competencia',"Tipo de Competencia");
 
 			$crud->change_field_type('ult_usuario', 'hidden', $this->session->userdata('id_usuario'));
 			$crud->change_field_type('fec_modificacion', 'datetime');
@@ -59,6 +60,10 @@
 			$crud->callback_delete(array($this,'desactivar_noborrar'));
 			$crud->callback_column('ult_usuario',array($this,'formatear_columna_usuario'));
 					
+
+			$crud->set_rules('competencia','Competencia','required');
+			$crud->set_rules('id_tipo_competencia','Tipo de Competencia','required');
+
 			$output=$crud->render();
 			
 	      	$this->_example_output($output);        
