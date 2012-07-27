@@ -33,7 +33,16 @@
 				<?php
 				$where['estado']='A';
 				$where['id_categoria']=$cat->id_categoria;
-				$enlaces=$this->db->get_where('enlaces',$where);
+
+
+				$where['estado']='A';
+				$this->db->from('enlaces');
+				$this->db->where($where);
+				$this->db->order_by("orden", "asc"); 
+				$enlaces=$this->db->get();
+
+
+			//	$enlaces=$this->db->get_where('enlaces',$where);
 				?>
 				<?php foreach ($enlaces->result() as $e) : ?>
 					
@@ -65,7 +74,15 @@
 		
 		<footer>
 			<hr />
-			<p><strong>Backend Proyecto Empleabilidad</strong></p>
+			<p>
+				<strong>Potenciado por:</strong>
+				<div id="logos_footer">
+					<a href="#" title="Fautapo"><img src="img/logopie.png" alt="Fautapo" /></a>
+					<a href="#" title="PHP"><img src="img/logopiephp.png" /></a>
+					<a href="#" title="POSTGRES"><img src="img/logopiepostgres.png" /></a>
+				</div>
+			</p>
+
 <!-- 			<p>Theme by <a href="http://www.medialoot.com">MediaLoot</a></p> -->
 		</footer>
 	</aside><!-- end of sidebar -->

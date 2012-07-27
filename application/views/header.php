@@ -77,7 +77,12 @@
 <body>
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="index.html">Proyecto empleabilidad</a></h1>
+		<!-- s -->
+			<div id="banner">
+				<h1>Elia Eudoxia
+				</h1>	
+				<h3>Sistema de informacion de Empleabilidad</h3>
+			</div>
 			<h2 class="section_title"><?=$titulo?></h2><div class="btn_view_site"><a href="http://www.medialoot.com">Ver el portal</a></div>
 		</hgroup>
 	</header> <!-- end of header bar -->

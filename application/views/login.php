@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Acceso al Sistema</title>
-	<base href="<?=base_url()?>"></base>
+	<base href="<?=base_url()?>" />
 	<style type="text/css">
 
 /*--------------------*/
@@ -12,27 +12,42 @@ html{
 	overflow: hidden;
 }
 body{
-background: rgb(181,189,200);
-background: -moz-linear-gradient(top,  rgba(181,189,200,1) 0%, rgba(130,140,149,1) 36%, rgba(40,52,59,1) 100%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(181,189,200,1)), color-stop(36%,rgba(130,140,149,1)), color-stop(100%,rgba(40,52,59,1)));
-background: -webkit-linear-gradient(top,  rgba(181,189,200,1) 0%,rgba(130,140,149,1) 36%,rgba(40,52,59,1) 100%);
-background: -o-linear-gradient(top,  rgba(181,189,200,1) 0%,rgba(130,140,149,1) 36%,rgba(40,52,59,1) 100%);
-background: -ms-linear-gradient(top,  rgba(181,189,200,1) 0%,rgba(130,140,149,1) 36%,rgba(40,52,59,1) 100%);
-background: linear-gradient(to bottom,  rgba(181,189,200,1) 0%,rgba(130,140,149,1) 36%,rgba(40,52,59,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=0 );
+
+
+
+background: #fffb94; /* Old browsers */
+background: -moz-linear-gradient(top,  #fffb94 0%, #fff135 48%, #fff575 99%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fffb94), color-stop(48%,#fff135), color-stop(99%,#fff575)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #fffb94 0%,#fff135 48%,#fff575 99%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #fffb94 0%,#fff135 48%,#fff575 99%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #fffb94 0%,#fff135 48%,#fff575 99%); /* IE10+ */
+background: linear-gradient(to bottom,  #fffb94 0%,#fff135 48%,#fff575 99%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffb94', endColorstr='#fff575',GradientType=0 ); /* IE6-9 */
+
+
 
 
 /*height:100%;*/
 }
+#logofau{
+    position: absolute;
+    top:10px;
+    left:50px;
+    width:150px;
+}
+
+
 #login
 {
-    background-color: #fff;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
-    background-image: -webkit-linear-gradient(top, #fff, #eee);
-    background-image: -moz-linear-gradient(top, #fff, #eee);
-    background-image: -ms-linear-gradient(top, #fff, #eee);
-    background-image: -o-linear-gradient(top, #fff, #eee);
-    background-image: linear-gradient(top, #fff, #eee);  
+background: #c0d6c7; /* Old browsers */
+background: -moz-linear-gradient(top,  #c0d6c7 0%, #69aa83 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c0d6c7), color-stop(100%,#69aa83)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #c0d6c7 0%,#69aa83 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #c0d6c7 0%,#69aa83 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #c0d6c7 0%,#69aa83 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #c0d6c7 0%,#69aa83 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0d6c7', endColorstr='#69aa83',GradientType=0 ); /* IE6-9 */
+
     /*height: 240px;*/
     width: 400px;
     margin: -150px 0 0 -230px;
@@ -89,7 +104,7 @@ h1
     text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
     text-transform: uppercase;
     text-align: center;
-    color: #666;
+    color: #005700;
     margin: 0 0 30px 0;
     letter-spacing: 4px;
     font: normal 26px/1 Verdana, Helvetica;
@@ -313,6 +328,7 @@ font-size: 14px;}
         <a href="">Olvido su clave?</a>
         <!-- <a href="">Register</a> -->
     </fieldset>
-</form>
+    </form>
+    <img src="img/logo_fautapo.jpg" id="logofau" />
 </body>
 </html>

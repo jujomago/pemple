@@ -109,3 +109,16 @@
 }
 
 /* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+
+
+.wizard .grupo p input{
+    width:250px;
+
+}
+.wizard .grupo p label{
+  color:#4080BF;
+}
+
+.wizard .grupo p .chzn-container{
+  margin-left: 10px;
+}

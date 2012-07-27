@@ -14,7 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://emple.local/';
+//$config['base_url']	= 'http://emple.local/';
+$config['base_url']	= 'http://192.168.1.216/pemple/';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']	= "REQUEST_URI"; 
 
 /*
 |--------------------------------------------------------------------------

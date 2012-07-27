@@ -43,6 +43,7 @@
 							number: true
 						},
 						lugarnac:"required",
+						extension:"required",
 						fnac:"required",
 						sexo:"required",
 						domicilio:"required",
@@ -59,6 +60,7 @@
 							number: "Escriba una celula valida"
 						},
 						lugarnac:"Seleccione un lugar de nacimiento",
+						extension:"Seleccione el lugar de Expedición del CI",
 						fnac:"Por favor introduzca su fecha de nacimiento",
 						sexo:"Por favor seleccione su sexo",
 						domicilio:"Por favor escriba su domicilio",
@@ -206,74 +208,63 @@
 
 
 
-						    step2="<div><select name=niveles[] data-placeholder='Nivel de Educación..'>";
+						    step2="<div class=grupo><p><label>Nivel de Educación</label><select name=niveles[] data-placeholder='Nivel de Educación..'>";
 						    step2+="<option/>";
 							step2+="<?php foreach ($niveles->result() as $nivel): ?>";
 							step2+="<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>";
 							step2+="<?php endforeach ?>";
-						    step2+="</select>";
-							step2+="<div class=combo_dinamico>";
+						    step2+="</select></p>";
+							step2+="<p><label>Establecimiento</label>";
 							step2+="<select name=establecimientos[] data-placeholder=Establecimiento>";
 							step2+="<option/>";
 							step2+="<?php foreach ($establecimientos->result() as $e): ?>";
 							step2+="<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>";
 							step2+="<?php endforeach ?>";
-							step2+="</select>";
-							step2+="<a href=# class=nuevo>nuevo</a>";
-							step2+="<input type=text  class=nuevo style=display:none  placeholder='Escriba y Presione Enter' data-href='establecimientos/agregar' focus/>";
-							step2+="</div>";
-							step2+="<input type=text placeholder='Titulo obtenido' name=titulos_obtenidos[] />";
-							step2+="<input type=text placeholder='Tiempo de estudio' name=tiempos_estudio[] />";
+							step2+="</select></p>";
+							step2+="<p><label>Titulo obtenido</label><input type=text  name=titulos_obtenidos[] /></p>";
+							step2+="<p><label>Tiempo de estudio</label> <input type=text name=tiempos_estudio[] /></p>";
 							step2+="</div>";
 
-							  step3="<div>";
-							 		 step3+="<div class=combo_dinamico>";					
+
+
+							  step3="<div class=grupo>";
+							 		 step3+="<p><label>Cargos</label>";					
 										 step3+="<select name=cargos[]  data-placeholder='Cargos..'>";
 											 step3+="<option/>";
 											 step3+="<?php foreach ($cargos->result() as $cargo): ?>";
 												 step3+="<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>";
 											 step3+="<?php endforeach ?>";
-										 step3+="</select>";
-										 step3+="<a href=# class=nuevo>nuevo</a>";
-										 step3+="<input type=text  class=nuevo style=display:none  placeholder='Escriba y Presione Enter' data-href='cargos/agregar' focus/>";
-									 step3+="</div>";
-									 step3+="<div class=combo_dinamico>";	
+										 step3+="</select>";									
+									 step3+="</p>";
+									 step3+="<p><label>Empresa</label> ";	
 										 step3+="<select name=sucursales[] data-placeholder='Empresas..'>";
 											 step3+="<option />";
 											 step3+="<?php foreach ($sucursales->result() as $suc): ?>";
 												 step3+="<option value=<?=$suc->id_sucursal?>><?=$suc->sucursal?></option>";
 											 step3+="<?php endforeach ?>";
-										 step3+="</select>";
-										 step3+="<a href=# class=nuevo>nuevo</a>";
-										 step3+="<input type=text  class=nuevo style=display:none placeholder='Escriba y Presione Enter' data-href='empresas/agregar' focus/>";
-									 step3+="</div>";
-									 step3+="<input type=number placeholder='Tiempo de Trabajo' name=tiempos_trabajo[] /> en años";
+										 step3+="</select>";									
+									 step3+="</p>";
+									 step3+="<p><label>Tiempo de Trabajo</label><input type=number placeholder='Tiempo de Trabajo' name=tiempos_trabajo[] /> en años</p>";
 							    step3+="</div>";
 
-
-
-				step4="<div>";
-					step4+="<div class=combo_dinamico>";
+				step4="<div class=grupo>";
+					step4+="<p><label>Competencia</label>";
 						step4+="<select name=competencias[] data-placeholder=Competencias..>";
 						step4+="<option></option>";
 							step4+="<?php foreach ($compentencias->result() as $compet): ?>";
 								step4+="<option value=<?=$compet->id_competencia?>><?=$compet->competencia?></option>";
 							step4+="<?php endforeach ?>";
-						step4+="</select>";
-						step4+="<a href=# class=nuevo>nuevo</a>";
-						step4+="<input type=text  class=nuevo style=display:none placeholder='Escriba y Presione Enter' data-href='competencias/agregar' focus/>";
-					step4+="</div>";
-					step4+="<div class=combo_dinamico>";
+						step4+="</select>";						
+					step4+="</p>";
+					step4+="<p><label>Institución</label>";
 						step4+="<select name=instituciones[] data-placeholder=Instituciones..>";
 						step4+="<option></option>";
 							step4+="<?php foreach ($instituciones->result() as $insti): ?>";
 								step4+="<option value=<?=$insti->id_institucion?>><?=$insti->institucion?></option>";
 							step4+="<?php endforeach ?>";
-						step4+="</select>";
-						step4+="<a href=# class=nuevo>nuevo</a>";
-						step4+="<input type=text  class=nuevo style=display:none placeholder='Escriba y Presione Enter' data-href='instituciones/agregar' focus/>";
-					step4+="</div>";
-					step4+="<input type=text class=fecha placeholder=Fecha  name=fechas_competencias[] />";
+						step4+="</select>";					
+					step4+="</p>";
+					step4+="<p><label>Fecha</label><input type=text class=fecha placeholder=Fecha  name=fechas_competencias[] /></p>";
 				step4+="</div>";
 
 
@@ -332,128 +323,155 @@
 				<legend>Inicio</legend>
 				<div class="grupo">
 				  <h3>Datos Personales</h3>
-				  <input type="text" name="nombres" placeholder="Nombres" />
-				  <input type="text" name="apaterno" placeholder="Ap. Paterno" />
-				  <input type="text" name="amaterno"  placeholder="Ap. Materno" />
-				  <br />
-				  <input type="text" name="ci"  placeholder="Cedula de Identidad"/>	
-				  <select name="extension" style="width:100px" class="filtrable">
+				  <p><label>Nombres</label> <input type="text" name="nombres" /></p>
+				  <p><label>Ap. Paterno</label> <input type="text" name="apaterno"  /></p>
+				  <p><label>Ap. Materno</label> <input type="text" name="amaterno"  /></p>
+				  <p><label>Cedula de Identidad</label><input type="text" name="ci"/> 
+				  	 <select name="extension" style="width:150px" class="filtrable"  data-placeholder="Lugar de Expedición..">
+				  	<option></option>
 				  	<?php foreach ($dptos->result() as $dpto):?>
 				  		<option value=<?=$dpto->id_departamento?>><?=$dpto->sigla?></option>
 				  	<?php endforeach; ?>
-				  </select>			
- 				  <input type="text" name="nit" placeholder="NIT" />	
-				 
-				   <br />
-				   
-				   <input type="text" name="fnac"  placeholder="Fecha de Nacimiento" class="fecha"/>	
-				    <select name="lugarnac" style="width:200px" class="filtrable"  data-placeholder="Lugar de Nacimiento..">
+				    </select>
+				   </p>
+				   <p><label>NIT</label>  <input type="text" name="nit" />	</p>
+				   <p><label>Fecha de Nacimiento</label>  <input type="text" name="fnac" class="fecha"/></p>
+				   <p><label>Lugar de Nacimiento</label> 
+				   	<select name="lugarnac" style="width:200px" class="filtrable"  data-placeholder="Lugar de Nacimiento..">
 				    <option></option>
 				  	<?php foreach ($dptos->result() as $dpto):?>
 				  		<option value=<?=$dpto->id_departamento?>><?=$dpto->departamento?></option>
 				  	<?php endforeach; ?>
-				  </select>			
-				   <select name="sexo" style="width:80px" class="filtrable" data-placeholder="Sexo..">
-				   	 <option></option>
-				  	<option value="M">M</option>
-				  	<option value="F">F</option>
 				  </select>	
+				   </p>
+				   <p>
+				   	<label>Sexo</label> 
+				   	  <select name="sexo" style="width:80px" class="filtrable" data-placeholder="Sexo..">
+					   	 <option></option>
+					  	<option value="M">M</option>
+					  	<option value="F">F</option>
+					  </select>	
+				   </p>
+				    		
+				 
 				</div>		
 				<div class="grupo">
 				  <h3>Direccion</h3>
-				 	  <input type="text"  placeholder="Domicilio" name="domicilio" />
-				 	  <input type="tel"  placeholder="Telefono" name="telefono" />
-					  <input type="text"  placeholder="Fax" name="fax" />
-				  	  <input type="tel"  placeholder="Celular" name="celular" />
-				 	  <input type="email"  placeholder="Email" name="email" />	
-				 	  <input type="text" placeholder="Pagina Web" name="web" />				 
+				 	 <p>
+				   	  <label>Domicilio</label> 
+				 	  <input type="text" name="domicilio" />
+				 	 </p>
+				 	  <p>
+				   	  <label>Telefono</label> 
+				 	  <input type="tel" name="telefono" />
+				 	  </p>
+ 						<p>
+				   	  <label>Fax</label> 
+					  <input type="text" name="fax" />
+					  </p>
+					   <p>
+				   	  <label>Celular</label> 
+				  	  <input type="text" name="celular" />
+				  	   </p>
+				  	   <p>
+				   	  <label>Email</label> 
+				 	  <input type="email" name="email" />	
+				 	   </p>
+				 	   <p>
+				   	  <label>Pagina Web</label> 
+				 	  <input type="text" name="web" />
+				 	  </p>				 
 				</div>		 
 			</fieldset>
 			<fieldset title="Paso 2">
 				<legend>Estudio Realizados</legend>
 				<input type="button" value="Agregar" id="agregar" />
 				<input type="button" value="Borrar" id="borrar" />
-				<div>					
-					<select name="niveles[]" id="nv1" class="chzn-select" data-placeholder="Nivel de Educación..">
-						<option></option>
-						<?php foreach ($niveles->result() as $nivel): ?>
-							<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>
-						<?php endforeach ?>
-					</select>
-					<div class="combo_dinamico">
-						<select name="establecimientos[]" id="estab1" data-placeholder="Establecimiento..">
+				<div class="grupo">
+				  	<p>
+					   	<label>Nivel de Educación</label> 					
+						<select name="niveles[]" id="nv1" class="chzn-select" data-placeholder="Nivel de Educación..">
 							<option></option>
-							<?php foreach ($establecimientos->result() as $e): ?>
-								<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>
+							<?php foreach ($niveles->result() as $nivel): ?>
+								<option value=<?=$nivel->id_nivel_formacion?>><?=$nivel->nivel_formacion?></option>
 							<?php endforeach ?>
 						</select>
-						<a href="#" class="nuevo">nuevo</a>
-						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
-						style="display:none" data-href="<?=base_url('establecimientos/agregar')?>" focus/>
-					</div>
-
-					<input type="text" placeholder="Titulo obtenido" name="titulos_obtenidos[]" />
-					<input type="text" placeholder="Tiempo de estudio" name="tiempos_estudio[]" />
+					</p>
+					<p>
+					   	<label>Establecimiento</label> 	
+						<select name="establecimientos[]" class="chzn-select" id="estab1" data-placeholder="Establecimiento..">
+								<option></option>
+								<?php foreach ($establecimientos->result() as $e): ?>
+									<option value=<?=$e->id_establecimiento?>><?=$e->establecimiento?></option>
+								<?php endforeach ?>
+						</select>									
+					</p>
+					<p>
+					   	<label>Titulo obtenido</label> 	
+						<input type="text" name="titulos_obtenidos[]" />
+					</p>
+					<p>
+					   	<label>Tiempo de estudio</label> 
+						<input type="text" name="tiempos_estudio[]" />
+					</p>
 				</div>			 
 			</fieldset>
 			<fieldset title="Paso 3">
 			  <legend>Experiencia de Trabajo</legend>
 			  <input type="button" value="Agregar" id="agregar" />
 			  <input type="button" value="Borrar" id="borrar" />
-			  <div>
-			 		<div class="combo_dinamico">					
-						<select name="cargos[]" id="cg1" data-placeholder="Cargos..">
+			  <div class="grupo">
+			 		<p>
+					   	<label>Cargos</label> 					
+						<select name="cargos[]" id="cg1" class="chzn-select" data-placeholder="Cargos..">
 							<option></option>
 							<?php foreach ($cargos->result() as $cargo): ?>
 								<option value=<?=$cargo->id_cargo?>><?=$cargo->cargo?></option>
 							<?php endforeach ?>
-						</select>
-						<a href="#" class="nuevo">nuevo</a>
-						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
-						style="display:none" data-href="<?=base_url('cargos/agregar')?>" focus/>
-					</div>
-					<div class="combo_dinamico">	
-						<select name="sucursales[]" id="emp1"  data-placeholder="Empresas..">
+						</select>						
+					</p>
+					<p>
+					   	<label>Empresa</label> 		
+						<select name="sucursales[]" id="emp1"  class="chzn-select" data-placeholder="Empresas..">
 							<option></option>
 							<?php foreach ($sucursales->result() as $suc): ?>
 								<option value=<?=$suc->id_empresa?>><?=$suc->sucursal?></option>
 							<?php endforeach ?>
 						</select>
-						<a href="#" class="nuevo">nuevo</a>
-						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
-						style="display:none" data-href="<?=base_url('empresas/agregar')?>" focus/>
-					</div>
-					<input type="number" placeholder="Tiempo de Trabajo" name="tiempos_trabajo[]" id="tt1" /> en años
+					</p>
+					<p>
+					   	<label>Tiempo de Trabajo</label> 	
+						<input type="number" name="tiempos_trabajo[]" id="tt1" /> en años
+					</p>
 			   </div>
 			</fieldset>
 			<fieldset id="step4" title="Paso 4">
 			  <legend>Compentencias certificadas</legend>
 			   <input type="button" value="Agregar" id="agregar" />
 			   <input type="button" value="Borrar" id="borrar" />
-			 	<div>
-					<div class="combo_dinamico">
-						<select name="competencias[]" id="comp1" data-placeholder="Competencias..">
+			 	<div class="grupo">
+					<p>
+					   	<label>Competencia</label> 	
+						<select name="competencias[]" id="comp1"  class="chzn-select" data-placeholder="Competencias..">
 						<option></option>
 							<?php foreach ($compentencias->result() as $compet): ?>
 								<option value=<?=$compet->id_competencia?>><?=$compet->competencia?></option>
 							<?php endforeach ?>
 						</select>
-						<a href="#" class="nuevo">nuevo</a>
-						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
-						style="display:none" data-href="<?=base_url('competencias/agregar')?>" focus/>
-					</div>
-					<div class="combo_dinamico">
-						<select name="instituciones[]" id="inst1" data-placeholder="Instituciones..">
+					</p>
+					<p>
+					   	<label>Institución</label> 	
+						<select name="instituciones[]" id="inst1"  class="chzn-select" data-placeholder="Instituciones..">
 						<option></option>
 							<?php foreach ($instituciones->result() as $insti): ?>
 								<option value=<?=$insti->id_institucion?>><?=$insti->institucion?></option>
 							<?php endforeach ?>
 						</select>
-						<a href="#" class="nuevo">nuevo</a>
-						<input type="text" placeholder="Escriba y Presione Enter"  class="nuevo" 
-						style="display:none" data-href="<?=base_url('instituciones/agregar')?>" focus/>
-					</div>
-					<input type="text" class="fecha" placeholder="Fecha" name="fechas_competencias[]" id="fec1" />
+					</p>
+					<p>
+					   	<label>Fecha</label> 	
+						<input type="text" class="fecha" placeholder="Fecha" name="fechas_competencias[]" id="fec1" />
+					</p>
 				</div>
 			</fieldset>
 		    <fieldset id="step5" title="Paso 5">

@@ -60,7 +60,7 @@ class Acceso extends CI_Controller {
 	 		$this->session->set_userdata($datos_persona);
 	 		// print_r($this->session->all_userdata());s
 	 		$this->session->set_userdata('LOGUEADO', TRUE);
-	 		redirect('/empleados/registro');
+	 		redirect('empleados/registro');
 	 	}else{
 	 		// redirect('acceso/index/error');
 	 		$this->index('error');

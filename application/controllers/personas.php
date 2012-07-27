@@ -156,7 +156,7 @@
 		  $where['id_persona']=$row->id_persona;
 		  $query=$this->db->get_where('usuarios',$where);
 		  if($query->num_rows()==1){
-		  	return "<img src='/images/icn_security.png' /> ";
+		  	return "<img src='/pemple/images/icn_security.png' /> ";
 		  }else{
 		  	return "X";
 		  }

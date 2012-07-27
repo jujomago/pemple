@@ -63,14 +63,15 @@ class Welcome extends CI_Controller {
 		redirect('/welcome/index/ok');
 	}
 	function prueba_error(){
-		$datos=array(
+		/*$datos=array(
 			'pais'=>'Holanda',
 			'nacionalidad'=>'Holandes',
 			'ult_usuario'=>1
 		);
 		$this->db->insert('paises',$datos);
-		echo $this->db->insert_id();
-
+		echo $this->db->insert_id();*/
+		echo "probando";
+		die();
 	}
 }
 
